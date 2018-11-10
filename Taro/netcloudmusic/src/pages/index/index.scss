@@ -1,0 +1,51 @@
+.discovery-container {
+  font-size: 14px;
+  position: relative;
+  width: 100%;
+  overflow: hidden;
+  box-sizing: border-box;
+//  顶部搜索
+  .top-search-body {
+    box-sizing: border-box;
+    height: 50*2px;
+    background-color: rgb(212, 52, 41);
+    padding: 16px;
+
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: nowrap;
+    align-items: center;
+
+    .identify {
+      display: inline-block;
+      width: 56px;
+      height: 56px;
+      background: url('../../asset/images/top_listen.png') no-repeat;
+      background-position: center;
+      background-size: cover;
+      transform: scale(0.9);
+    }
+
+    .search {
+      display: inline-block;
+      border-radius: 2rem;
+      width: 11rem !important;
+      height: 70px;
+      background-color: #DF625C;
+      text-indent: 1em;
+      color: #fff;
+    }
+
+    .music-playing {
+      display: inline-block;
+      width: 56px;
+      height: 56px;
+      background: url('../../asset/images/musicPlaying.png') no-repeat;
+      background-position: center;
+      background-size: cover;
+      transform: scale(0.8);
+    }
+
+  }
+
+}
