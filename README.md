@@ -9,6 +9,7 @@
 # demo  
 
 + taro
-  - taro-simple-demo01 taro仿知乎
+  - taro-simple-demo01 taro仿知乎(没接口弃了 rua~)
+  - netcloudmusic      taro仿网易云
 
 
