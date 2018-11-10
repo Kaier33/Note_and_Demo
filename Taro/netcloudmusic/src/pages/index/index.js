@@ -1,5 +1,5 @@
 import Taro, { Component } from '@tarojs/taro'
-import { View, Button, Text, Image, Input } from '@tarojs/components'
+import { View, Button, Text, Image, Input, Swiper, SwiperItem } from '@tarojs/components'
 import { AtTabs, AtTabsPane } from 'taro-ui'
 
 import './index.scss'
@@ -15,7 +15,7 @@ class Index extends Component {
     constructor() {
         super(...arguments)
         this.state = {
-            showStartPage: false,
+            showStartPage: true,
             searchValue: '',
             loading: false,
             currentTab: 0,
@@ -40,12 +40,13 @@ class Index extends Component {
     componentDidHide() { }
 
     componentDidMount() {
+        document.getElementsByClassName('at-tabs__body')[0].classList.add('t300')
         //send request
-        // setTimeout(() => {
-        //   this.setState({
-        //     showStartPage: false
-        //   })
-        // }, 2000)
+        setTimeout(() => {
+            this.setState({
+                showStartPage: false
+            })
+        }, 1000)
 
     }
 
@@ -55,11 +56,48 @@ class Index extends Component {
         return (
             <View>
                 {
-                    this.state.showStartPage ? startPage : ''
+                    this.state.showStartPage ? 'true' : ''
                 }
                 <View className='discovery-container'>
                     {/* 搜索 */}
                     <TopSearch></TopSearch>
+                    {/* swiper1 */}
+                    <Swiper
+                        className='selfhoodSwiper'
+                        indicatorColor='#999'
+                        indicatorActiveColor='#333'
+                        circular
+                        indicatorDots
+                    >
+                        <SwiperItem>
+                            <View className='item-container'>
+                                <View className='item' style={{
+                                    background: "url('https://ss3.bdstatic.com/70cFv8Sh_Q1YnxGkpoWK1HF6hhy/it/u=1903030856,2725637177&fm=26&gp=0.jpg')", backgroundPosition: "center",
+                                    backgroundSize: "cover", backgroundRepeat: "no-repeat"
+                                }}></View>
+                            </View>
+                        </SwiperItem>
+
+                        <SwiperItem>
+                            <View className='item-container'>
+                                <View className='item' style={{
+                                    background: "url('https://ss2.bdstatic.com/70cFvnSh_Q1YnxGkpoWK1HF6hhy/it/u=3843701180,1765791208&fm=26&gp=0.jpg')", backgroundPosition: "center",
+                                    backgroundSize: "cover", backgroundRepeat: "no-repeat"
+                                }}
+                                ></View>
+                            </View>
+                        </SwiperItem>
+
+                        <SwiperItem>
+                            <View className='item-container'>
+                                <View className='item' style={{
+                                    background: "url('https://ss1.bdstatic.com/70cFuXSh_Q1YnxGkpoWK1HF6hhy/it/u=3818605926,3125793153&fm=26&gp=0.jpg')", backgroundPosition: "center",
+                                    backgroundSize: "cover", backgroundRepeat: "no-repeat"
+                                }}
+                                ></View>
+                            </View>
+                        </SwiperItem>
+                    </Swiper>
                     {/* tabs */}
                     <AtTabs
                         heigh={100}
@@ -72,7 +110,7 @@ class Index extends Component {
                         </AtTabsPane>
                     </AtTabs>
                 </View>
-            </View>
+            </View >
         )
     }
 }

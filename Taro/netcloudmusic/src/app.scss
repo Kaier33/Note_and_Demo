@@ -16,6 +16,9 @@
   color: #fff !important;
   padding-bottom: 10PX !important;
 }
+.at-tabs__underline{
+  background-color: #fff !important;
+}
 .at-tabs__item--active{
     color: #fff !important;
 }
@@ -32,6 +35,15 @@
     left: 41% !important;
 }
 
+.at-tabs__body{
+  position: relativel !important;
+  min-height: 500PX !important;
+}
+
+.t300{
+  position: relative !important;
+  top: 320px !important;
+}
 
 ::placeholder {
   color: #fff;

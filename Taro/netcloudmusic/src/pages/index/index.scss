@@ -1,10 +1,13 @@
 .discovery-container {
   font-size: 14px;
+  padding: 0;
   position: relative;
   width: 100%;
   overflow: hidden;
   box-sizing: border-box;
-//  顶部搜索
+  min-height: 600px;
+
+  //  顶部搜索
   .top-search-body {
     box-sizing: border-box;
     height: 50*2px;
@@ -47,5 +50,33 @@
     }
 
   }
+
+  .selfhoodSwiper {
+    position: absolute;
+    top: 4.5rem;
+    z-index: 5;
+    height: 6.7rem;
+    z-index: 999;
+    background: linear-gradient(#D43429 70%, #fff 50%); 
+  }
+
+
+  .swiper__item {
+    box-sizing: border-box;
+    overflow: hidden;
+  }
+
+  .item-container {
+    box-sizing: border-box;
+    padding: 20px !important;
+  }
+
+  .item {
+    width: 100%;
+    height: 100%;
+    border-radius: 15px !important;
+  }
+
+
 
 }
