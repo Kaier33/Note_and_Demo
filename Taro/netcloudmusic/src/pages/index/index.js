@@ -1,6 +1,8 @@
 import Taro, { Component } from '@tarojs/taro'
 import { View, Button, Text, Image, Input, Swiper, SwiperItem, ScrollView } from '@tarojs/components'
 import { AtTabs, AtTabsPane, AtIcon } from 'taro-ui'
+import { connect } from '@tarojs/redux'
+import { asyncBanner } from '../../actions/counter'
 
 import './index.scss'
 
@@ -8,6 +10,13 @@ import './index.scss'
 import TopSearch from '../../component/discovery/top_search'  //顶部搜索
 import List from '../../component/discovery/list'             //列表
 
+@connect((store) => ({
+    store
+}), (dispatch) => ({
+    asyncBanner() {
+        return dispatch(asyncBanner())
+    },
+}))
 class Index extends Component {
     config = {
         navigationBarTitleText: '发现'
@@ -32,6 +41,17 @@ class Index extends Component {
             currentTab: value
         })
     }
+    handleRecommend() {
+        Taro.navigateTo({ url: '/pages/topsong/topsong' })
+    }
+    send() {
+        this.props.asyncBanner();
+    }
+    look() {
+        console.log(this.props.store)
+    }
+
+    // lifecycle
 
     componentWillReceiveProps(nextProps) {
         // console.log('update?')
@@ -52,26 +72,41 @@ class Index extends Component {
             console.log('我来了')
         }
         //send request
+        // 更新数据解决swiper问题(临时性)
         setTimeout(() => {
             this.setState({
                 showStartPage: false
             })
         }, 1000)
 
-        Taro.showLoading({ title: 'loading' })
-        // banner
-        Taro.request({
-            url: 'https://music.kaier33.top/netcloud/banner'
-        }).then(res => {
-            Taro.hideLoading()
-            // console.log(res)
-            if (res.statusCode == 200) {
+        let banlist = this.props.store.counter.bannerList
+        if (banlist.length > 0) {
+            this.setState({
+                selfhoodBanners: banlist
+            })
+        } else {
+            this.props.asyncBanner().then(()=>{
+                let resList = this.props.store.counter.bannerList 
                 this.setState({
-                    selfhoodBanners: res.data.banners,
-                    loading: false
+                    selfhoodBanners:resList
                 })
-            }
-        })
+            })
+
+            // Taro.showLoading({ title: 'loading' })
+            // // banner
+            // Taro.request({
+            //     url: 'https://music.kaier33.top/netcloud/banner'
+            // }).then(res => {
+            //     Taro.hideLoading()
+            //     // console.log('banner fetch')
+            //     if (res.statusCode == 200) {
+            //         this.setState({
+            //             selfhoodBanners: res.data.banners,
+            //             loading: false
+            //         })
+            //     }
+            // })
+        }
         // 推荐音乐
         Taro.request({
             url: 'https://music.kaier33.top/netcloud/personalized?limit=6'
@@ -100,7 +135,7 @@ class Index extends Component {
         Taro.request({
             url: 'https://music.kaier33.top/netcloud/personalized/djprogram?limit=6'
         }).then(res => {
-            console.log('最新音乐')
+            console.log('主播电台')
             console.log(res)
             if (res.statusCode == 200) {
                 this.setState({
@@ -161,7 +196,7 @@ class Index extends Component {
                                     </View>
                                     <Text>私人FM</Text>
                                 </View>
-                                <View>
+                                <View onClick={this.handleRecommend.bind(this)}>
                                     <View className='category'>
                                         <View className='recommend'></View>
                                     </View>
@@ -190,8 +225,13 @@ class Index extends Component {
                             }
                         </AtTabsPane>
                         <AtTabsPane current={this.state.currentTab} index={1}>
-                            <View style='padding: 100px 50px;background-color: #FAFBFC;text-align: center;'>标签页二的内容</View>
+                            <View style='padding: 100px 50px;background-color: #FAFBFC;text-align: center;'>
+                                <Button onClick={this.send.bind(this)}>send</Button>
+                                <Button onClick={this.look.bind(this)}>look</Button>
+                            </View>
                         </AtTabsPane>
+
+
                     </AtTabs>
                 </View>
             </View >

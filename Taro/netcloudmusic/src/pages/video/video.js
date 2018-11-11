@@ -1,7 +1,7 @@
 import Taro, { Component } from '@tarojs/taro'
 import { View, Button, Text } from '@tarojs/components'
 
-// import './video.scss'
+import './video.scss'
 
 class Video extends Component {
 
@@ -22,7 +22,7 @@ class Video extends Component {
   render() {
     return (
       <View>
-        视频页面
+        <View className='videoPage'></View>
       </View>
     )
   }

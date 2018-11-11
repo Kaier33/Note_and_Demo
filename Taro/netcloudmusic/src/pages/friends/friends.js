@@ -1,7 +1,7 @@
 import Taro, { Component } from '@tarojs/taro'
 import { View, Button, Text } from '@tarojs/components'
 
-// import './friends.scss'
+import './friends.scss'
 
 class Friends extends Component {
 
@@ -22,7 +22,7 @@ class Friends extends Component {
   render() {
     return (
       <View>
-          朋友页面
+        <View className='friendPage'></View>
       </View>
     )
   }

@@ -1,7 +1,7 @@
 import Taro, { Component } from '@tarojs/taro'
 import { View, Button, Text } from '@tarojs/components'
 
-// import './mine.scss'
+import './mine.scss'
 class Mine extends Component {
 
   config = {
@@ -21,7 +21,7 @@ class Mine extends Component {
   render() {
     return (
       <View>
-          我的页面
+        <View className='minePage'></View>
       </View>
     )
   }

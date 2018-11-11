@@ -19,7 +19,9 @@ class App extends Component {
       'pages/video/video',
       'pages/mine/mine',
       'pages/friends/friends',
-      'pages/account/account'
+      'pages/account/account',
+      'pages/topsong/topsong',
+      'pages/player/player',
     ],
     window: {
       backgroundTextStyle: 'light',
