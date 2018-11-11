@@ -51,13 +51,14 @@
 
   }
 
+  //  发现的轮播
   .selfhoodSwiper {
     position: absolute;
     top: 4.5rem;
     z-index: 5;
     height: 6.7rem;
     z-index: 999;
-    background: linear-gradient(#D43429 70%, #fff 50%); 
+    background: linear-gradient(#D43429 70%, #fff 50%);
   }
 
 
@@ -77,6 +78,101 @@
     border-radius: 15px !important;
   }
 
+  // 分类菜单
+  .classification {
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: nowrap;
+    align-items: center;
+    height: 220px;
+    width: 100%;
+    text-align: center;
+    border-bottom: 1px solid #F6F6F6;
+    margin-bottom: 40px;
 
+    .category {
+      width: 130px;
+      height: 130px;
+      background-color: #D43429;
+      border-radius: 100%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-wrap: nowrap;
 
+      &>div {
+        display: block;
+        width: 70px;
+        height: 70px;
+        background-position: center !important;
+        background-size: cover !important;
+      }
+
+      &>div.FM {
+        background: url('../../asset/images/discovery/FM.png') no-repeat;
+      }
+
+      &>div.recommend {
+        background: url('../../asset/images/discovery/tj.png') no-repeat;
+      }
+
+      &>div.music-list {
+        background: url('../../asset/images/discovery/musicList.png') no-repeat;
+      }
+
+      &>div.rank-list {
+        background: url('../../asset/images/discovery/phb.png') no-repeat;
+      }
+    }
+  }
+
+  // 列表
+  .discovery-list {
+    padding: 0 15px;
+    box-sizing: border-box;
+    margin-bottom: 30px;
+
+    .title {
+      display: flex;
+      flex-wrap: nowrap;
+      justify-content: flex-start;
+      align-items: center;
+      font-size: 18PX;
+      // margin-bottom: 30px;
+    }
+
+    .list {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      align-items: center;
+
+      .list-item {
+        width: 116PX;
+        height: 155PX;
+        overflow: hidden;
+        margin-top: 20px;
+        .cover {
+          display: block;
+          width: 116PX;
+          height: 116PX;
+          background-color: #fff;
+        }
+
+        .text {
+          overflow: hidden;
+          text-overflow: ellipsis;
+          display: -webkit-box;
+          -webkit-box-orient: vertical;
+          -webkit-line-clamp: 2;
+        }
+
+      }
+    }
+  }
+
+  //test
+  .test {
+    padding-bottom: 30PX;
+  }
 }

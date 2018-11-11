@@ -45,7 +45,7 @@ export default class Index extends Component {
 		this.setState({ loading: true }, () => {
 			Taro.showLoading({ title: 'loading' })
 			Taro.request({
-				url: 'https://www.easy-mock.com/mock/5bdee454bc617620972b038e/taro_zhihu/homepage'
+				url: 'https://www.easy-mock.com/mock/5bdee454bc617620972b038e/taro_zhihu/questionList'
 			}).then(res => {
 				Taro.hideLoading()
 				if (res.data.success) {
@@ -63,7 +63,7 @@ export default class Index extends Component {
 		this.setState({ loading: true }, () => {
 			Taro.showLoading({ title: 'loading' })
 			Taro.request({
-				url: 'https://www.easy-mock.com/mock/5bdee454bc617620972b038e/taro_zhihu/homepage'
+				url: 'https://www.easy-mock.com/mock/5bdee454bc617620972b038e/taro_zhihu/questionList'
 			}).then(res => {
 				Taro.hideLoading()
 				if (res.data.success) {
@@ -82,7 +82,7 @@ export default class Index extends Component {
 		this.setState({ loading: true })
 		Taro.showLoading({ title: 'loading' })
 		Taro.request({
-			url: 'https://www.easy-mock.com/mock/5bdee454bc617620972b038e/taro_zhihu/homepage'
+			url: 'https://www.easy-mock.com/mock/5bdee454bc617620972b038e/taro_zhihu/questionList'
 		}).then(res => {
 			Taro.hideLoading()
 			console.log(res)
@@ -107,7 +107,10 @@ export default class Index extends Component {
 						onActionClick={this.onSearchClick.bind(this)}
 					/>
 				</View>
-				<ScrollView
+				<View>
+					23333
+				</View>
+				{/* <ScrollView
 					className='container'
 					scrollY
 					scrollWithAnimation
@@ -120,7 +123,7 @@ export default class Index extends Component {
 					<View className='articlList'>
 
 					</View>
-				</ScrollView>
+				</ScrollView> */}
 
 				{/* <AtActivityIndicator mode='center' content='加载中...'></AtActivityIndicator> */}
 
