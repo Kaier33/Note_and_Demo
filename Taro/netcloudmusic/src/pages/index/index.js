@@ -73,11 +73,11 @@ class Index extends Component {
         }
         //send request
         // 更新数据解决swiper问题(临时性)
-        setTimeout(() => {
-            this.setState({
-                showStartPage: false
-            })
-        }, 1000)
+        // setTimeout(() => {
+        //     this.setState({
+        //         showStartPage: false
+        //     })
+        // }, 1000)
 
         let banlist = this.props.store.counter.bannerList
         if (banlist.length > 0) {
@@ -85,10 +85,11 @@ class Index extends Component {
                 selfhoodBanners: banlist
             })
         } else {
-            this.props.asyncBanner().then(()=>{
-                let resList = this.props.store.counter.bannerList 
+            this.props.asyncBanner().then(() => {
+                let resList = this.props.store.counter.bannerList
                 this.setState({
-                    selfhoodBanners:resList
+                    selfhoodBanners: resList,
+                    showStartPage:false
                 })
             })
 
@@ -153,7 +154,7 @@ class Index extends Component {
         return (
             <View>
                 {
-                    // this.state.showStartPage ? 'true' : ''
+                    this.state.showStartPage ? startPage : ''
                 }
                 <View className='discovery-container'>
                     {/* 搜索 */}
@@ -220,9 +221,6 @@ class Index extends Component {
                             <List list={this.state.newsong} title='最新音乐'></List>
                             <List list={this.state.djprogram} title='主播电台'></List>
 
-                            {
-                                this.state.showStartPage ? '233' : ''
-                            }
                         </AtTabsPane>
                         <AtTabsPane current={this.state.currentTab} index={1}>
                             <View style='padding: 100px 50px;background-color: #FAFBFC;text-align: center;'>
