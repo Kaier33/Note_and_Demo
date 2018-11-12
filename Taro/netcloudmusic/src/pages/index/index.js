@@ -2,9 +2,15 @@ import Taro, { Component } from '@tarojs/taro'
 import { View, Button, Text, Image, Input, Swiper, SwiperItem, ScrollView } from '@tarojs/components'
 import { AtTabs, AtTabsPane, AtIcon } from 'taro-ui'
 import { connect } from '@tarojs/redux'
-import { asyncBanner } from '../../actions/counter'
+import { asyncBanner, firstUp } from '../../actions/counter'
 
 import './index.scss'
+
+//pic
+import FM from '../../asset/images/discovery/FM.png'
+import MUSICLIST from '../../asset/images/discovery/musicList.png'
+import PHB from '../../asset/images/discovery/phb.png'
+import TJ from '../../asset/images/discovery/tj.png'
 
 // component
 import TopSearch from '../../component/discovery/top_search'  //顶部搜索
@@ -16,6 +22,9 @@ import List from '../../component/discovery/list'             //列表
     asyncBanner() {
         return dispatch(asyncBanner())
     },
+    firstUp() {
+        dispatch(firstUp())
+    }
 }))
 class Index extends Component {
     config = {
@@ -25,7 +34,6 @@ class Index extends Component {
     constructor() {
         super(...arguments)
         this.state = {
-            showStartPage: true,
             searchValue: '',
             loading: false,
             currentTab: 0,
@@ -50,6 +58,34 @@ class Index extends Component {
     look() {
         console.log(this.props.store)
     }
+    commonRequest(opt) {
+        if (process.env.TARO_ENV === 'h5' && window.localStorage.getItem(opt.winstorevalue)) {
+            this.setState({
+                [opt.target]: JSON.parse(window.localStorage.getItem(opt.winstorevalue))
+            })
+        } else {
+            if (Taro.getStorageSync(opt.wxstorevalue)) {
+                this.setState({
+                    [opt.target]: Taro.getStorageSync(opt.wxstorevalue)
+                })
+            } else {
+                // send request
+                Taro.request({
+                    url: opt.url
+                }).then(res => {
+                    console.log('send')
+                    console.log(res)
+                    if (res.statusCode == 200) {
+                        process.env.TARO_ENV === 'h5' && window.localStorage.setItem(opt.winstorevalue, JSON.stringify(res.data.result ? res.data.result : res.data.data))
+                        process.env.TARO_ENV === 'weapp' && Taro.setStorage({ key: opt.wxstorevalue, data: res.data.result ? res.data.result : res.data.data })
+                        this.setState({
+                            [opt.target]: res.data.result ? res.data.result : res.data.data
+                        })
+                    }
+                })
+            }
+        }
+    }
 
     // lifecycle
 
@@ -69,81 +105,177 @@ class Index extends Component {
         console.log(this.$router)
         // document.getElementsByClassName('at-tabs__body')[0].classList.add('t300')
         if (this.$router.fullUrl == '/pages/index/index') {
-            console.log('我来了')
+            // console.log('我来了')
+            console.log('仓库')
+            console.log(this.props.store)
         }
-        //send request
-        // 更新数据解决swiper问题(临时性)
-        // setTimeout(() => {
-        //     this.setState({
-        //         showStartPage: false
-        //     })
-        // }, 1000)
 
-        let banlist = this.props.store.counter.bannerList
-        if (banlist.length > 0) {
+
+        if (process.env.TARO_ENV === 'h5' && window.localStorage.getItem('bannerList')) {
             this.setState({
-                selfhoodBanners: banlist
-            })
-        } else {
-            this.props.asyncBanner().then(() => {
-                let resList = this.props.store.counter.bannerList
-                this.setState({
-                    selfhoodBanners: resList,
-                    showStartPage:false
-                })
+                selfhoodBanners: JSON.parse(window.localStorage.getItem('bannerList'))
+            }, () => {
+                setTimeout(() => {
+                    this.props.firstUp()
+                }, 2000)
             })
 
-            // Taro.showLoading({ title: 'loading' })
-            // // banner
-            // Taro.request({
-            //     url: 'https://music.kaier33.top/netcloud/banner'
-            // }).then(res => {
-            //     Taro.hideLoading()
-            //     // console.log('banner fetch')
-            //     if (res.statusCode == 200) {
-            //         this.setState({
-            //             selfhoodBanners: res.data.banners,
-            //             loading: false
-            //         })
-            //     }
-            // })
+        } else {
+            const banlist = this.props.store.counter.bannerList
+            if (banlist.length > 0) {
+                this.setState({
+                    selfhoodBanners: banlist
+                })
+            } else {
+                const WXbannerList = Taro.getStorageSync('bannerList')
+                if (process.env.TARO_ENV === 'weapp' && WXbannerList) {
+                    this.setState({
+                        selfhoodBanners: WXbannerList,
+                    }, () => {
+                        this.props.firstUp()
+                    })
+                } else {
+                    this.props.asyncBanner().then(() => {
+                        console.log("***************")
+                        console.log(this.props.store)
+                        let resList = this.props.store.counter.bannerList
+                        process.env.TARO_ENV === 'h5' && window.localStorage.setItem('bannerList', JSON.stringify(resList))
+                        process.env.TARO_ENV === 'weapp' && Taro.setStorage({ key: 'bannerList', data: this.props.store.counter.bannerList })
+                        this.setState({
+                            selfhoodBanners: resList,
+                        })
+                        this.props.firstUp()
+                    })
+                }
+
+                // Taro.showLoading({ title: 'loading' })
+                // // banner
+                // Taro.request({
+                //     url: 'https://music.kaier33.top/netcloud/banner'
+                // }).then(res => {
+                //     Taro.hideLoading()
+                //     // console.log('banner fetch')
+                //     if (res.statusCode == 200) {
+                //         this.setState({
+                //             selfhoodBanners: res.data.banners,
+                //             loading: false
+                //         })
+                //     }
+                // })
+            }
         }
+
+
         // 推荐音乐
-        Taro.request({
-            url: 'https://music.kaier33.top/netcloud/personalized?limit=6'
-        }).then(res => {
-            console.log('推荐音乐')
-            console.log(res)
-            if (res.statusCode == 200) {
-                this.setState({
-                    recommendMusicList: res.data.result,
-                })
-            }
+        this.commonRequest({
+            url: 'https://music.kaier33.top/netcloud/personalized?limit=6',
+            target: 'recommendMusicList',
+            wxstorevalue: 'wxrecommendMusicList',
+            winstorevalue: 'recommendMusicList'
         })
-        //  最新音乐
-        Taro.request({
-            url: 'https://music.kaier33.top/netcloud/mv/first?limit=6'
-        }).then(res => {
-            console.log('最新音乐')
-            console.log(res)
-            if (res.statusCode == 200) {
-                this.setState({
-                    newsong: res.data.data,
-                })
-            }
+        
+        // 最新音乐 (虽然拿的是MV)
+        this.commonRequest({
+            url: 'https://music.kaier33.top/netcloud/mv/first?limit=6',
+            target: 'newsong',
+            wxstorevalue: 'wxnewsong',
+            winstorevalue: 'newsong'
         })
-        // 主播电台
-        Taro.request({
-            url: 'https://music.kaier33.top/netcloud/personalized/djprogram?limit=6'
-        }).then(res => {
-            console.log('主播电台')
-            console.log(res)
-            if (res.statusCode == 200) {
-                this.setState({
-                    djprogram: res.data.result,
-                })
-            }
+        // 推荐电台
+        this.commonRequest({
+            url: 'https://music.kaier33.top/netcloud/personalized/djprogram?limit=6',
+            target: 'djprogram',
+            wxstorevalue: 'wxdjprogram',
+            winstorevalue: 'djprogram'
         })
+
+        // if (process.env.TARO_ENV === 'h5' && window.localStorage.getItem('recommendMusicList')) {
+        //     this.setState({
+        //         recommendMusicList: JSON.parse(window.localStorage.getItem('recommendMusicList'))
+        //     })
+        // } else {
+        //     const wxrecommendMusicList = Taro.getStorageSync('wxrecommendMusicList')
+        //     if (wxrecommendMusicList) {
+        //         this.setState({
+        //             recommendMusicList: wxrecommendMusicList
+        //         })
+        //     } else {
+        //         // 推荐音乐
+        //         Taro.request({
+        //             url: 'https://music.kaier33.top/netcloud/personalized?limit=6'
+        //         }).then(res => {
+        //             console.log('推荐音乐')
+        //             console.log(res)
+        //             if (res.statusCode == 200) {
+        //                 process.env.TARO_ENV === 'h5' && window.localStorage.setItem('recommendMusicList', JSON.stringify(res.data.result))
+        //                 process.env.TARO_ENV === 'weapp' && Taro.setStorage({ key: 'wxrecommendMusicList', data: res.data.result })
+        //                 this.setState({
+        //                     recommendMusicList: res.data.result,
+        //                 })
+        //             }
+        //         })
+        //     }
+        // }
+
+
+
+        // if (process.env.TARO_ENV === 'h5' && window.localStorage.getItem('newsong')) {
+        //     this.setState({
+        //         newsong: JSON.parse(window.localStorage.getItem('newsong'))
+        //     })
+        // } else {
+        //     const wxnewsong = Taro.getStorageSync('wxnewsong')
+        //     if (process.env.TARO_ENV === 'weapp' && wxnewsong) {
+        //         this.setState({
+        //             newsong: wxnewsong
+        //         })
+        //     } else {
+        //         //  最新音乐
+        //         Taro.request({
+        //             url: 'https://music.kaier33.top/netcloud/mv/first?limit=6'
+        //         }).then(res => {
+        //             console.log('最新音乐')
+        //             console.log(res)
+        //             if (res.statusCode == 200) {
+        //                 process.env.TARO_ENV === 'h5' && window.localStorage.setItem('newsong', JSON.stringify(res.data.data))
+        //                 process.env.TARO_ENV === 'weapp' && Taro.setStorage({ key: 'wxnewsong', data: res.data.data })
+        //                 this.setState({
+        //                     newsong: res.data.data,
+        //                 })
+        //             }
+        //         })
+        //     }
+        // }
+
+
+        // if (process.env.TARO_ENV === 'h5' && window.localStorage.getItem('djprogram')) {
+        //     this.setState({
+        //         djprogram: JSON.parse(window.localStorage.getItem('djprogram'))
+        //     })
+        // } else {
+        //     const wxdjprogram = Taro.getStorageSync('wxdjprogram')
+        //     if (process.env.TARO_ENV === 'weapp' && wxdjprogram) {
+        //         this.setState({
+        //             djprogram: wxdjprogram
+        //         })
+        //     } else {
+        //         // 主播电台
+        //         Taro.request({
+        //             url: 'https://music.kaier33.top/netcloud/personalized/djprogram?limit=6'
+        //         }).then(res => {
+        //             console.log('主播电台')
+        //             console.log(res)
+        //             if (res.statusCode == 200) {
+        //                 process.env.TARO_ENV === 'h5' && window.localStorage.setItem('djprogram', JSON.stringify(res.data.result))
+        //                 process.env.TARO_ENV === 'weapp' && Taro.setStorage({ key: 'wxdjprogram', data: res.data.result })
+        //                 this.setState({
+        //                     djprogram: res.data.result,
+        //                 })
+        //             }
+        //         })
+        //     }
+        // }
+
 
 
     }
@@ -154,11 +286,12 @@ class Index extends Component {
         return (
             <View>
                 {
-                    // this.state.showStartPage ? startPage : ''
+                    this.props.store.counter.firstUp ? startPage : ''
                 }
                 <View className='discovery-container'>
                     {/* 搜索 */}
                     <TopSearch></TopSearch>
+
                     {/* swiper1 */}
                     <Swiper
                         className='selfhoodSwiper'
@@ -173,10 +306,11 @@ class Index extends Component {
                                 return (
                                     <SwiperItem key={index}>
                                         <View className='item-container'>
-                                            <View className='item' style={{
+                                            <Image src={item.imageUrl}></Image>
+                                            {/* <View className='item' style={{
                                                 background: "url(" + item.imageUrl + ")", backgroundPosition: "center",
                                                 backgroundSize: "cover", backgroundRepeat: "no-repeat"
-                                            }}></View>
+                                            }}></View> */}
                                         </View>
                                     </SwiperItem>
                                 )
@@ -193,25 +327,25 @@ class Index extends Component {
                             <View className='classification'>
                                 <View>
                                     <View className='category'>
-                                        <View className='FM'></View>
+                                        <Image src={FM}></Image>
                                     </View>
                                     <Text>私人FM</Text>
                                 </View>
                                 <View onClick={this.handleRecommend.bind(this)}>
                                     <View className='category'>
-                                        <View className='recommend'></View>
+                                        <Image src={TJ}></Image>
                                     </View>
                                     <Text>每日推荐</Text>
                                 </View>
                                 <View>
                                     <View className='category'>
-                                        <View className='music-list'></View>
+                                        <Image src={MUSICLIST}></Image>
                                     </View>
                                     <Text>歌单</Text>
                                 </View>
                                 <View>
                                     <View className='category'>
-                                        <View className='rank-list'></View>
+                                        <Image src={PHB}></Image>
                                     </View>
                                     <Text>排行版</Text>
                                 </View>

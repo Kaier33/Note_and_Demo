@@ -1,0 +1,46 @@
+  // 列表
+  .discovery-list {
+    padding: 0 15px;
+    box-sizing: border-box;
+    margin-bottom: 30px;
+
+    .title {
+      display: flex;
+      flex-wrap: nowrap;
+      justify-content: flex-start;
+      align-items: center;
+      font-size: 18PX;
+      // margin-bottom: 30px;
+    }
+
+    .list {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      align-items: center;
+
+      .list-item {
+        width: 116PX;
+        height: 155PX;
+        overflow: hidden;
+        margin-top: 20px;
+
+        img,
+        image {
+          display: inline-block;
+          width: 116PX;
+          height: 116PX;
+          // background-color: #fff;
+        }
+
+        .text {
+          overflow: hidden;
+          text-overflow: ellipsis;
+          display: -webkit-box;
+          -webkit-box-orient: vertical;
+          -webkit-line-clamp: 2;
+        }
+
+      }
+    }
+  }

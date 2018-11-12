@@ -1,6 +1,9 @@
 import Taro, { Component } from '@tarojs/taro'
 import { View, Text, Image } from '@tarojs/components'
 import { AtIcon } from 'taro-ui'
+
+import './list.scss'
+
 class List extends Component {
     constructor() {
         super(...arguments)
@@ -23,10 +26,7 @@ class List extends Component {
                         this.props.list.map((item, index) => {
                             return (
                                 <View className='list-item' key={index}>
-                                    <View className='cover' style={{
-                                        background: "url(" + (item.picUrl || item.cover) + ")", backgroundPosition: "center",
-                                        backgroundSize: "cover", backgroundRepeat: "no-repeat"
-                                    }} ></View>
+                                    <Image src={item.picUrl || item.cover}></Image>
                                     <View className='text'>{item.name}</View>
                                 </View>
 

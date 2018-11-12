@@ -31,29 +31,16 @@ const config = {
         url: {
           enable: true,
           config: {
-            limit: 20240 // 设定转换尺寸上限
+            limit: 30240 // 设定转换尺寸上限
           }
         }
       }
     }
   },
   h5: {
-    publicPath: './',
-    staticDirectory: 'asset',
+    publicPath: '/',
+    staticDirectory: 'static',
     module: {
-      // rules: [
-      //   {
-      //     test: /\.(png|jpg|gif)$/,
-      //     use: [
-      //       {
-      //         loader: 'url-loader',
-      //         options: {
-      //           limit: 8192
-      //         }
-      //       }
-      //     ]
-      //   }
-      // ],
       postcss: {
         autoprefixer: {
           enable: true

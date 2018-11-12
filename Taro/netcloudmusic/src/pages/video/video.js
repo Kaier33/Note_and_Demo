@@ -1,6 +1,7 @@
 import Taro, { Component } from '@tarojs/taro'
-import { View, Button, Text } from '@tarojs/components'
+import { View, Button, Text ,Image } from '@tarojs/components'
 
+import VIDEOBG from '../../asset/images/videopage.png'
 import './video.scss'
 
 class Video extends Component {
@@ -21,8 +22,8 @@ class Video extends Component {
 
   render() {
     return (
-      <View>
-        <View className='videoPage'></View>
+      <View className='videoPage'>
+        <Image src={VIDEOBG}></Image>
       </View>
     )
   }
