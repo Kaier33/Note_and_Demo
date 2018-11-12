@@ -1,0 +1,14 @@
+.startBG {
+  box-sizing: border-box;
+  width: 100%;
+  height: 100vh;
+  position: absolute;
+  top: 0;
+  z-index: 99999;
+  padding-bottom: taro-tabbar-height;
+  img,image{
+      display: block;
+      width: 100%;
+      height: 100%;
+  }
+}

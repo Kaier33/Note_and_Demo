@@ -15,6 +15,7 @@ import TJ from '../../asset/images/discovery/tj.png'
 // component
 import TopSearch from '../../component/discovery/top_search'  //顶部搜索
 import List from '../../component/discovery/list'             //列表
+import StartBG from '../../component/startapp_bg/start_page'  //启动页
 
 @connect((store) => ({
     store
@@ -173,7 +174,7 @@ class Index extends Component {
             wxstorevalue: 'wxrecommendMusicList',
             winstorevalue: 'recommendMusicList'
         })
-        
+
         // 最新音乐 (虽然拿的是MV)
         this.commonRequest({
             url: 'https://music.kaier33.top/netcloud/mv/first?limit=6',
@@ -188,111 +189,22 @@ class Index extends Component {
             wxstorevalue: 'wxdjprogram',
             winstorevalue: 'djprogram'
         })
-
-        // if (process.env.TARO_ENV === 'h5' && window.localStorage.getItem('recommendMusicList')) {
-        //     this.setState({
-        //         recommendMusicList: JSON.parse(window.localStorage.getItem('recommendMusicList'))
-        //     })
-        // } else {
-        //     const wxrecommendMusicList = Taro.getStorageSync('wxrecommendMusicList')
-        //     if (wxrecommendMusicList) {
-        //         this.setState({
-        //             recommendMusicList: wxrecommendMusicList
-        //         })
-        //     } else {
-        //         // 推荐音乐
-        //         Taro.request({
-        //             url: 'https://music.kaier33.top/netcloud/personalized?limit=6'
-        //         }).then(res => {
-        //             console.log('推荐音乐')
-        //             console.log(res)
-        //             if (res.statusCode == 200) {
-        //                 process.env.TARO_ENV === 'h5' && window.localStorage.setItem('recommendMusicList', JSON.stringify(res.data.result))
-        //                 process.env.TARO_ENV === 'weapp' && Taro.setStorage({ key: 'wxrecommendMusicList', data: res.data.result })
-        //                 this.setState({
-        //                     recommendMusicList: res.data.result,
-        //                 })
-        //             }
-        //         })
-        //     }
-        // }
-
-
-
-        // if (process.env.TARO_ENV === 'h5' && window.localStorage.getItem('newsong')) {
-        //     this.setState({
-        //         newsong: JSON.parse(window.localStorage.getItem('newsong'))
-        //     })
-        // } else {
-        //     const wxnewsong = Taro.getStorageSync('wxnewsong')
-        //     if (process.env.TARO_ENV === 'weapp' && wxnewsong) {
-        //         this.setState({
-        //             newsong: wxnewsong
-        //         })
-        //     } else {
-        //         //  最新音乐
-        //         Taro.request({
-        //             url: 'https://music.kaier33.top/netcloud/mv/first?limit=6'
-        //         }).then(res => {
-        //             console.log('最新音乐')
-        //             console.log(res)
-        //             if (res.statusCode == 200) {
-        //                 process.env.TARO_ENV === 'h5' && window.localStorage.setItem('newsong', JSON.stringify(res.data.data))
-        //                 process.env.TARO_ENV === 'weapp' && Taro.setStorage({ key: 'wxnewsong', data: res.data.data })
-        //                 this.setState({
-        //                     newsong: res.data.data,
-        //                 })
-        //             }
-        //         })
-        //     }
-        // }
-
-
-        // if (process.env.TARO_ENV === 'h5' && window.localStorage.getItem('djprogram')) {
-        //     this.setState({
-        //         djprogram: JSON.parse(window.localStorage.getItem('djprogram'))
-        //     })
-        // } else {
-        //     const wxdjprogram = Taro.getStorageSync('wxdjprogram')
-        //     if (process.env.TARO_ENV === 'weapp' && wxdjprogram) {
-        //         this.setState({
-        //             djprogram: wxdjprogram
-        //         })
-        //     } else {
-        //         // 主播电台
-        //         Taro.request({
-        //             url: 'https://music.kaier33.top/netcloud/personalized/djprogram?limit=6'
-        //         }).then(res => {
-        //             console.log('主播电台')
-        //             console.log(res)
-        //             if (res.statusCode == 200) {
-        //                 process.env.TARO_ENV === 'h5' && window.localStorage.setItem('djprogram', JSON.stringify(res.data.result))
-        //                 process.env.TARO_ENV === 'weapp' && Taro.setStorage({ key: 'wxdjprogram', data: res.data.result })
-        //                 this.setState({
-        //                     djprogram: res.data.result,
-        //                 })
-        //             }
-        //         })
-        //     }
-        // }
-
-
-
     }
 
     render() {
-        const startPage = (<View className='startBG' ></View>)
+        // const StartPage = (<View className='startBG' ><Text>233</Text><Image src={STARTBG}></Image></View>)
         const tabList = [{ title: '个性推荐' }, { title: '主播电台' }]
         return (
             <View>
                 {
-                    this.props.store.counter.firstUp ? startPage : ''
+                    this.props.store.counter.firstUp ? <StartBG></StartBG> : ''
                 }
                 <View className='discovery-container'>
                     {/* 搜索 */}
                     <TopSearch></TopSearch>
 
                     {/* swiper1 */}
+
                     <Swiper
                         className='selfhoodSwiper'
                         indicatorColor='#999'
@@ -307,10 +219,6 @@ class Index extends Component {
                                     <SwiperItem key={index}>
                                         <View className='item-container'>
                                             <Image src={item.imageUrl}></Image>
-                                            {/* <View className='item' style={{
-                                                background: "url(" + item.imageUrl + ")", backgroundPosition: "center",
-                                                backgroundSize: "cover", backgroundRepeat: "no-repeat"
-                                            }}></View> */}
                                         </View>
                                     </SwiperItem>
                                 )

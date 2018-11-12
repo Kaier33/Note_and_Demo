@@ -21,13 +21,15 @@ class TopSearch extends Component {
     render() {
         return (
             <View className='top-search-body'>
-                <Image src={TOPLISTEN}></Image>
-                {/* <View className='identify'></View> */}
-                <View>
-                    <Input className='search' type='text' placeholder='网易云音乐'></Input>
+                <View className='taro-img'>
+                    <Image src={TOPLISTEN}></Image>
                 </View>
-                <Image src={MUSICPLAYING}></Image>
-                {/* <View className='music-playing'></View> */}
+                <View>
+                    <Input className='search' type='text' placeholder='网易云音乐233'></Input>
+                </View>
+                <View className='taro-img'>
+                    <Image src={MUSICPLAYING}></Image>
+                </View>
             </View>
         )
     }

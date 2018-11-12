@@ -11,7 +11,7 @@
   .top-search-body {
     box-sizing: border-box;
     overflow: hidden;
-    height: 70px;
+    height: 104px;
     padding: 16px;
     background-color: rgb(212, 52, 41);
 
@@ -22,13 +22,16 @@
 
     image,
     img {
-      display: inline-block;
+      display: block;
       width: 56px;
       height: 56px;
-      // background: url('../../asset/images/top_listen.png') no-repeat;
-      // background-position: center;
-      // background-size: cover;
-      transform: scale(0.8);
+      transform: scale(0.9);
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      right: 0;
+      left: 0;
+      margin: auto;
     }
 
     .search {
@@ -39,7 +42,7 @@
       background-color: #DF625C;
       text-indent: 1em;
       color: #fff !important;
-      font-size: 20px;
+      font-size: 20px !important;
     }
 
     .music-playing {
@@ -104,6 +107,7 @@
     margin-bottom: 40px;
 
     .category {
+      position: relative;
       width: 130px;
       height: 130px;
       background-color: #D43429;
@@ -118,6 +122,12 @@
         display: inline-block;
         width: 70px;
         height: 70px;
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        right: 0;
+        left: 0;
+        margin: auto;
       }
     }
   }
@@ -128,4 +138,3 @@
     padding-bottom: 30PX;
   }
 }
-

@@ -1,13 +1,3 @@
-.startBG {
-  width: 100%;
-  height: 26.3rem;
-  background: url('./asset/images/startBG.png') no-repeat;
-  background-position: center;
-  background-size: cover;
-  position: fixed;
-  top: 0;
-  z-index: 99999;
-}
 
 // taro ui 
 // tabs
@@ -49,6 +39,12 @@
     top: 320px !important;
     margin-bottom: 320px !important;
   }
+}
+
+.taro-img{
+  position: relative;
+  width: 100% !important;
+  height: 100% !important;
 }
 
 .t300 {
