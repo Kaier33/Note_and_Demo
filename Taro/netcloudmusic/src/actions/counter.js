@@ -1,7 +1,8 @@
 import {
   ADD,
   MINUS,
-  BANNERS
+  BANNERS,
+  FIRSTUP
 } from '../constants/counter'
 
 import Taro from '@tarojs/taro'
@@ -24,12 +25,20 @@ export const setBanner = (_data) => {
   }
 }
 
+export const firstUp = () => {
+  return {
+    type: FIRSTUP
+  }
+}
+
 export function asyncBanner() {
   return dispatch => {
-    Taro.showLoading({ title: 'loading' });
+    Taro.showLoading({
+      title: 'loading'
+    });
     return Taro.request({
-      url: 'https://music.kaier33.top/netcloud/banner'
-    })
+        url: 'https://music.kaier33.top/netcloud/banner'
+      })
       .then(res => {
         Taro.hideLoading()
         console.log('bannerlist')

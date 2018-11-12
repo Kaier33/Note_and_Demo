@@ -1,7 +1,8 @@
 import Taro, { Component } from '@tarojs/taro'
-import { View, Button, Text } from '@tarojs/components'
+import { View, Button, Text ,Image } from '@tarojs/components'
 
 import './mine.scss'
+import MINEPAGE from '../../asset/images/minepage.png'
 class Mine extends Component {
 
   config = {
@@ -20,8 +21,8 @@ class Mine extends Component {
 
   render() {
     return (
-      <View>
-        <View className='minePage'></View>
+      <View className='mine-page'>
+        <Image src={MINEPAGE}></Image>
       </View>
     )
   }

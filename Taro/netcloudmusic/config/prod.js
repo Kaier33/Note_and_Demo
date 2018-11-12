@@ -4,6 +4,8 @@ module.exports = {
   },
   defineConstants: {
   },
-  weapp: {},
-  h5: {}
+  weapp: {
+  },
+  h5: {
+  }
 }

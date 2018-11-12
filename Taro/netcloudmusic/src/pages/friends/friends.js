@@ -1,6 +1,7 @@
 import Taro, { Component } from '@tarojs/taro'
-import { View, Button, Text } from '@tarojs/components'
+import { View, Button, Text ,Image } from '@tarojs/components'
 
+import FRIENDPAGE from '../../asset/images/firend.png'
 import './friends.scss'
 
 class Friends extends Component {
@@ -21,8 +22,8 @@ class Friends extends Component {
 
   render() {
     return (
-      <View>
-        <View className='friendPage'></View>
+      <View className='friendPage'>
+        <Image src={FRIENDPAGE}></Image>
       </View>
     )
   }

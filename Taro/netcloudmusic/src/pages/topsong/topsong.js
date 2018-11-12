@@ -14,11 +14,10 @@ class TopSong extends Component {
         }
     }
     backhome() {
-        Taro.navigateTo({ url: '/pages/index/index' })
+        Taro.navigateBack()
     }
 
     playmusic(e) {
-        console.log(2222)
         console.log(e)
     }
 
@@ -39,7 +38,7 @@ class TopSong extends Component {
 
     componentDidMount() {
         // https://music.kaier33.top/netcloud/top/song?type=0&limit=20
-        if (window.localStorage.getItem('tempList')) {
+        if (process.env.TARO_ENV === 'h5' && window.localStorage.getItem('tempList')) {
             let tempList = JSON.parse(window.localStorage.getItem('tempList'))
             this.setState({
                 allList: tempList
@@ -58,7 +57,7 @@ class TopSong extends Component {
                         allList: res.data.data.slice(0, 20)
                         // allList: res.data.recommend.slice(0, 20)
                     }, () => {
-                        window.localStorage.setItem("tempList", (JSON.stringify(this.state.allList)))
+                        process.env.TARO_ENV === 'h5' && window.localStorage.setItem("tempList", (JSON.stringify(this.state.allList)))
                         console.log(this.state.allList)
                     })
                 }

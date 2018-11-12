@@ -1,8 +1,14 @@
-import { ADD, MINUS, BANNERS } from '../constants/counter'
+import {
+  ADD,
+  MINUS,
+  BANNERS,
+  FIRSTUP
+} from '../constants/counter'
 
 const INITIAL_STATE = {
   num: 0,
-  bannerList: []
+  bannerList: [],
+  firstUp: true,
 }
 
 export default function counter(state = INITIAL_STATE, action) {
@@ -16,6 +22,11 @@ export default function counter(state = INITIAL_STATE, action) {
       return {
         ...state,
         num: state.num - 1
+      }
+    case FIRSTUP:
+      return {
+        ...state,
+        firstUp: false
       }
     case BANNERS:
       return {
