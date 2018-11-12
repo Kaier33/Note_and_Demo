@@ -27,14 +27,34 @@ class Account extends Component {
       password: value
     })
   }
+  aboutme() {
+    Taro.request({
+      url: 'https://music.kaier33.top/netcloud/recommend/resource',
+      header: { cookie: Taro.getStorageSync('cookie')},
+    }).then(res => {
+      console.log(res)
+    })
+  }
+  checkStatus() {
+    Taro.request({
+      url: 'https://music.kaier33.top/netcloud/login/status',
+    }).then(res => {
+      console.log(res)
+    })
+  }
+  cookie(){
+    Taro.setStorageSync('test','2333')
+    console.log(Taro.getStorageSync('cookie'))
+  }
   onSubmit() {
     console.log(this.state)
     const { user, password } = this.state;
     Taro.request({
-      url: `https://music.kaier33.top/login/cellphone?phone=${user}&password=${password}`,
+      url: `https://music.kaier33.top/netcloud/login/cellphone?phone=${user}&password=${password}`,
     }).then(res => {
-      // console.log(res)
+      console.log(res)
       if (res.statusCode == 200) {
+        Taro.setStorageSync('cookie',res.header['Set-Cookie'])
         Taro.showToast({
           title: '登录成功',
           duration: 2000
@@ -83,7 +103,10 @@ class Account extends Component {
               value={this.state.password}
               onChange={this.handleChangePW.bind(this)}
             />
-            <AtButton onClick={this.onSubmit.bind(this)}>提交</AtButton>
+            <AtButton onClick={this.onSubmit.bind(this)}>登录</AtButton>
+            <AtButton onClick={this.checkStatus.bind(this)}>查看登录状态</AtButton>
+            <AtButton onClick={this.aboutme.bind(this)}>个人</AtButton>
+            <AtButton onClick={this.cookie.bind(this)}>cookie</AtButton>
           </AtForm>
         </View>
       </View>

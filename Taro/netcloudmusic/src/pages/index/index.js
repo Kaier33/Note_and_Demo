@@ -197,7 +197,7 @@ class Index extends Component {
         return (
             <View>
                 {
-                    this.props.store.counter.firstUp ? <StartBG></StartBG> : ''
+                    // this.props.store.counter.firstUp ? <StartBG></StartBG> : ''
                 }
                 <View className='discovery-container'>
                     {/* 搜索 */}
