@@ -154,7 +154,7 @@ class Index extends Component {
         return (
             <View>
                 {
-                    this.state.showStartPage ? startPage : ''
+                    // this.state.showStartPage ? startPage : ''
                 }
                 <View className='discovery-container'>
                     {/* 搜索 */}
