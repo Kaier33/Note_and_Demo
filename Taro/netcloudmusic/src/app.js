@@ -4,7 +4,6 @@ import { Provider } from '@tarojs/redux'
 
 import Index from './pages/index/index'
 
-
 import configStore from './store'
 
 import './app.scss'
@@ -15,13 +14,14 @@ class App extends Component {
 
   config = {
     pages: [
+      'pages/account/account',
       'pages/friends/friends',
       'pages/index/index',
       'pages/video/video',
       'pages/mine/mine',
       'pages/topsong/topsong',
-      'pages/account/account',
       'pages/player/player',
+      'pages/personal/personal',
     ],
     window: {
       backgroundTextStyle: 'light',
@@ -36,8 +36,7 @@ class App extends Component {
       backgroundColor: "#FBFBFB",
       borderStyle: "#C7C2C6",
       list: [{
-        // pagePath: "pages/index/index",
-        pagePath: "pages/friends/friends",
+        pagePath: "pages/index/index",
         text: "发现",
         iconPath: "./asset/images/tabBar/discovery2.png",
         selectedIconPath: "./asset/images/tabBar/discovery1.png"

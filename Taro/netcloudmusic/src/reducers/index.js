@@ -1,8 +1,8 @@
 import { combineReducers } from 'redux'
 import counter from './counter'
-import temp from './temp'
+import main from './main'
 
 export default combineReducers({
   counter,
-  temp
+  main
 })

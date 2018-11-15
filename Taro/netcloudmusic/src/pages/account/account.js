@@ -1,14 +1,24 @@
 import Taro, { Component } from '@tarojs/taro'
-import { View, Button, Text } from '@tarojs/components'
+import { View, Button, Text, Image } from '@tarojs/components'
 import { AtInput, AtForm, AtButton } from 'taro-ui'
+import { connect } from '@tarojs/redux'
+import { changeLoginStatus } from '../../actions/login'
 
 import './account.scss'
+import ICON from '../../asset/images/login.png'
 
+@connect((store) => ({
+  store
+}), (dispatch) => ({
+  changeLoginStatus() {
+    dispatch(changeLoginStatus())
+  }
+}))
 class Account extends Component {
   constructor() {
     super(...arguments)
     this.state = {
-      user: '18565765586',
+      user: '',
       password: ''
     }
   }
@@ -68,6 +78,9 @@ class Account extends Component {
       credentials: 'include',
     }).then(res => {
       console.log(res)
+      if(res.statusCode==200){
+        Taro.showToast({title:'退出成功'})
+      }
     })
   }
 
@@ -85,12 +98,26 @@ class Account extends Component {
       credentials: 'include',
     }).then(
       res => {
-        Taro.setStorageSync('cookie', res.header['Set-Cookie'])
         console.log(res)
+ 
+        if (res.statusCode == 200) {
+          Taro.showToast({ title: '登录成功' })
+          this.props.changeLoginStatus()
+          Taro.setStorageSync('cookie', res.header['Set-Cookie'])
+          Taro.navigateTo({
+            url:'/pages/personal/personal'
+          })
+        
+        } else {
+          Taro.showToast({ title: '登录失败', icon: 'none' })
+        }
       },
       err => { console.log('err') }
     ).catch(err => { console.log(err) })
-    
+  }
+
+  lookredux() {
+    console.log(this.props.store)
   }
 
   componentWillReceiveProps(nextProps) {
@@ -107,12 +134,13 @@ class Account extends Component {
     return (
       <View>
         <View className='accountPage'>
+          <Image src={ICON} className='icon' />
           <AtForm>
             <AtInput
               name='value'
               title='账号'
               type='text'
-              placeholder=''
+              placeholder='你的手机号码'
               value={this.state.user}
               onChange={this.handleChangeUser.bind(this)}
             />
@@ -124,12 +152,11 @@ class Account extends Component {
               value={this.state.password}
               onChange={this.handleChangePW.bind(this)}
             />
-            <AtButton onClick={this.onSubmit.bind(this)}>登录a</AtButton>
-            <AtButton onClick={this.quit.bind(this)}>退出登录a</AtButton>
+            <AtButton onClick={this.onSubmit.bind(this)}>登录</AtButton>
+            <AtButton onClick={this.quit.bind(this)}>退出登录</AtButton>
             <AtButton onClick={this.checkStatus.bind(this)}>查看登录状态a</AtButton>
-            <AtButton onClick={this.mrtj.bind(this)}>个人每日推荐歌曲a</AtButton>
-            <AtButton onClick={this.grgd.bind(this)}>个人每日推荐歌单a</AtButton>
-            <AtButton onClick={this.cookie.bind(this)}>cookie</AtButton>
+            <AtButton onClick={this.lookredux.bind(this)}>查看redux登录状态</AtButton>
+            {/* <AtButton onClick={this.mrtj.bind(this)}>个人每日推荐歌曲a</AtButton> */}
           </AtForm>
         </View>
       </View>
