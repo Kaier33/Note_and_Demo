@@ -38,6 +38,9 @@ const config = {
     }
   },
   h5: {
+    devServer: {
+      port: 10110
+    },
     publicPath: '/',
     staticDirectory: 'static',
     module: {

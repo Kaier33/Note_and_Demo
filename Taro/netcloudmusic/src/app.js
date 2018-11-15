@@ -15,12 +15,12 @@ class App extends Component {
 
   config = {
     pages: [
-      'pages/account/account',
+      'pages/friends/friends',
       'pages/index/index',
       'pages/video/video',
       'pages/mine/mine',
-      'pages/friends/friends',
       'pages/topsong/topsong',
+      'pages/account/account',
       'pages/player/player',
     ],
     window: {
@@ -37,7 +37,7 @@ class App extends Component {
       borderStyle: "#C7C2C6",
       list: [{
         // pagePath: "pages/index/index",
-        pagePath: "pages/account/account",
+        pagePath: "pages/friends/friends",
         text: "发现",
         iconPath: "./asset/images/tabBar/discovery2.png",
         selectedIconPath: "./asset/images/tabBar/discovery1.png"
