@@ -59,7 +59,6 @@ class Index extends Component {
     look() {
         console.log(this.props.store)
     }
-
     commonRequest(opt) {
         if (process.env.TARO_ENV === 'h5' && window.localStorage.getItem(opt.winstorevalue)) {
             this.setState({
@@ -109,9 +108,7 @@ class Index extends Component {
         if (this.$router.fullUrl == '/pages/index/index') {
             // console.log('我来了')
             console.log('仓库')
-            // let swDom = document.getElementsByClassName('selfhoodSwiper')
-            // console.log(swDom)
-            // document.getElementsByClassName('selfhoodSwiper')[swDom.length - 1].style.display = 'block'
+            console.log(this.props.store)
         }
 
 
