@@ -19,6 +19,32 @@
             "command": "extension.caringOtaku",
             "title": "Caring Otaku"
         }],
+        "configuration": {
+            "type": "object",
+            "title": "remind me configuration",
+            "properties": {
+                "CaringOtaku.defaultCity": {
+                    "type": "string",
+                    "default": "shenzhen",
+                    "description": "Set default city (eg.深圳 or shenzhen)"
+                },
+                "CaringOtaku.freeweatherAK": {
+                    "type": "string",
+                    "default": "f9fcf6d427b513e10e7483652a688bff",
+                    "description": "You can get your private key from here: https://wx.jdcloud.com/market/datas/26/10610"
+                },
+                "CaringOtaku.lunchTime": {
+                    "type": "string",
+                    "default": "11:30",
+                    "description": "set lunch times"
+                },
+                "CaringOtaku.getOffTime": {
+                    "type": "string",
+                    "default": "18:00",
+                    "description": "set get off work time times"
+                }
+            }
+        },
         "keybindings": [{
             "command": "extension.caringOtaku",
             "key": "ctrl+shift+,",

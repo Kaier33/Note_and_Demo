@@ -11,23 +11,20 @@ export function activate(context: vscode.ExtensionContext) {
     let care = vscode.commands.registerCommand('extension.caringOtaku', () => {
         // The code you place here will be executed every time your command is executed
 
-        const option = {
-            ignoreFocusOut: true,
-            password: false,
-            prompt: 'please input your city (eg.shenzhen or 深圳)'
+        /* Duang Duang Duang Duang Duang Duang Duang Duang Duang Duang  */
+        vscode.window.showInformationMessage('肥宅快乐编程, 启动!');
+        /* Duang Duang Duang Duang Duang Duang Duang Duang Duang Duang  */
+        const config = vscode.workspace.getConfiguration('CaringOtaku');
+        if (!config.defaultCity) {
+            vscode.window.showInformationMessage('please input your city in vscode setting');
+        } else {
+            getWeatherInfo(config.defaultCity);
         }
-        vscode.window.showInputBox(option).then(value => {
-            if (!value) {
-                vscode.window.showInformationMessage('please input your city')
-                return
-            } else {
-                vscode.window.showInformationMessage(`肥宅快乐编程, 启动!`);
-            }
-        })
+        // console.log(config);
 
         setTimeout(() => {
             let now = new Date();
-            if (now.getHours() == 18) {
+            if (now.getHours() == 0) {
                 vscode.window.showInformationMessage('下班~');
             }
         }, 3000);
@@ -37,6 +34,31 @@ export function activate(context: vscode.ExtensionContext) {
     });
 
     context.subscriptions.push(care);
+}
+
+function getWeatherInfo(cityName: string, operation: Number = -1): void {
+    const config = vscode.workspace.getConfiguration('caringOtaku');
+    const AK = config.freeweatherAK ? config.freeweatherAK : 'f9fcf6d427b513e10e7483652a688bff';
+    axios.get('https://way.jd.com/he/freeweathe', {
+        params: {
+            city: config.defaultCity,
+            appkey: AK
+        },
+        withCredentials: true, 
+    })
+        .then(function (response) {
+
+            console.log("*****************")
+            console.log(response);
+        })
+        .catch(function (error) {
+            vscode.window.showErrorMessage('获取天气失败/server error/母鸡点解')
+        })
+        .then(function () {
+            // always executed
+        });
+
+
 }
 
 
