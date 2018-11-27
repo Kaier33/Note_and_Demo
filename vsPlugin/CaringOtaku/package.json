@@ -15,10 +15,12 @@
     "main": "./out/extension",
     "icon": "https://i.ibb.co/3p9N0Vp/icon.png",
     "contributes": {
-        "commands": [{
-            "command": "extension.caringOtaku",
-            "title": "Caring Otaku"
-        }],
+        "commands": [
+            {
+                "command": "extension.caringOtaku",
+                "title": "Caring Otaku"
+            }
+        ],
         "configuration": {
             "type": "object",
             "title": "remind me configuration",
@@ -30,7 +32,7 @@
                 },
                 "CaringOtaku.freeweatherAK": {
                     "type": "string",
-                    "default": "f9fcf6d427b513e10e7483652a688bff",
+                    "default": "a90ea189359766e44a1c976654993eb2",
                     "description": "You can get your private key from here: https://wx.jdcloud.com/market/datas/26/10610"
                 },
                 "CaringOtaku.lunchTime": {
@@ -45,11 +47,13 @@
                 }
             }
         },
-        "keybindings": [{
-            "command": "extension.caringOtaku",
-            "key": "ctrl+shift+,",
-            "mac": "ctrl+shift+,"
-        }]
+        "keybindings": [
+            {
+                "command": "extension.caringOtaku",
+                "key": "ctrl+shift+,",
+                "mac": "ctrl+shift+,"
+            }
+        ]
     },
     "scripts": {
         "vscode:prepublish": "npm run compile",
@@ -66,6 +70,6 @@
         "@types/mocha": "^2.2.42"
     },
     "dependencies": {
-        "axios": "^0.18.0"
+        "web-request": "^1.0.7"
     }
 }
