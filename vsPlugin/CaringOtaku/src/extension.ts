@@ -65,7 +65,7 @@ export function activate(context: vscode.ExtensionContext) {
     //             vscode.window.showInformationMessage('下班~');
     //         }
     //     }, 3000);
-    // });
+    });
 
     context.subscriptions.push(disposable);
 }
