@@ -1,0 +1,75 @@
+{
+    "name": "caring-otaku",
+    "displayName": "CaringOtaku",
+    "description": "CaringOtaku",
+    "version": "0.0.1",
+    "engines": {
+        "vscode": "^1.29.0"
+    },
+    "categories": [
+        "Other"
+    ],
+    "activationEvents": [
+        "*"
+    ],
+    "main": "./out/extension",
+    "icon": "https://i.ibb.co/3p9N0Vp/icon.png",
+    "contributes": {
+        "commands": [
+            {
+                "command": "extension.caringOtaku",
+                "title": "Caring Otaku"
+            }
+        ],
+        "configuration": {
+            "type": "object",
+            "title": "remind me configuration",
+            "properties": {
+                "CaringOtaku.defaultCity": {
+                    "type": "string",
+                    "default": "shenzhen",
+                    "description": "Set default city (eg.深圳 or shenzhen)"
+                },
+                "CaringOtaku.freeweatherAK": {
+                    "type": "string",
+                    "default": "a90ea189359766e44a1c976654993eb2",
+                    "description": "You can get your private key from here: https://wx.jdcloud.com/market/datas/26/10610"
+                },
+                "CaringOtaku.lunchTime": {
+                    "type": "string",
+                    "default": "11:30",
+                    "description": "set lunch times"
+                },
+                "CaringOtaku.getOffTime": {
+                    "type": "string",
+                    "default": "18:00",
+                    "description": "set get off work time times"
+                }
+            }
+        },
+        "keybindings": [
+            {
+                "command": "extension.caringOtaku",
+                "key": "ctrl+shift+,",
+                "mac": "ctrl+shift+,"
+            }
+        ]
+    },
+    "scripts": {
+        "vscode:prepublish": "npm run compile",
+        "compile": "tsc -p ./",
+        "watch": "tsc -watch -p ./",
+        "postinstall": "node ./node_modules/vscode/bin/install",
+        "test": "npm run compile && node ./node_modules/vscode/bin/test"
+    },
+    "devDependencies": {
+        "typescript": "^2.6.1",
+        "vscode": "^1.1.21",
+        "tslint": "^5.8.0",
+        "@types/node": "^8.10.25",
+        "@types/mocha": "^2.2.42"
+    },
+    "dependencies": {
+        "web-request": "^1.0.7"
+    }
+}

@@ -3,8 +3,7 @@
 工具, 资料整理 详情请见issues;    
 + [start的整理](https://github.com/KaierChou/Note_and_Demo/issues/2)  
 + [http升级https](https://github.com/KaierChou/Note_and_Demo/issues/3)
-
-
++ [do you really know JavaScript?](https://github.com/KaierChou/Note_and_Demo/issues)
 
 # demo  
 

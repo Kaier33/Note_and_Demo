@@ -14,8 +14,8 @@ class App extends Component {
 
   config = {
     pages: [
-      'pages/friends/friends',
       'pages/account/account',
+      'pages/friends/friends',
       'pages/index/index',
       'pages/video/video',
       'pages/mine/mine',
