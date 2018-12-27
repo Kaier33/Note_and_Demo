@@ -1,13 +1,108 @@
 extends ./layout/default
-
 block title 
   title Koa Douban 首页
 
 block content
-  .container
+  style.
+    header {
+      background: #00474f;
+      color: #E7DACB;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      height: 50px;
+      z-index: 500;
+    }
+    .collapse {
+      display: block;
+    }
+    .nav {
+      flex-direction: column;
+    }
+  include ./includes/header
+
+  .container-fluid
     .row
-      .col-md-8
-        h1 Hi #{you}
-        p This is #{me}
-      .col-md-4
-        p 测试koa views Pug模板引擎233
+      .col-12.col-md-3.col-xl-2.sidebar
+        .collapse.cat-links
+          .sidebar-item.active
+            a.sidebar-link(href='/') Links
+            ul.nav.sidebar-inner
+              li.active.siderbar-inner-active
+                a(href='/') Link1  
+              li.sidebar-inner-active
+                a(href='/') Link2
+      .col-12.col-md-9.col-xl-9.py-md-3.pl-md-5content
+        .row
+          .col-md-6
+            .card
+              img.card-img-top(src='https://image.ibb.co/eMidhq/images-3.jpg',data-video='http://media.playstation.com/is/content/SCEA/explore/playstation-vr/us/overview/videos/playstation-vr-overview-video-hero-02-ps4-us-14nov18.mp4')
+              .card-body
+                h4.card-title 这是电影标题
+                p.card-desc 这是电影描述
+              .card-footer
+                samll.text-muted 1天前更新
+          .col-md-6
+            .card
+              img.card-img-top(src='https://image.ibb.co/eMidhq/images-3.jpg',data-video='http://media.playstation.com/is/content/SCEA/explore/playstation-vr/us/overview/videos/playstation-vr-overview-video-hero-02-ps4-us-14nov18.mp4')
+              .card-body
+                h4.card-title 这是电影标题
+                p.card-desc 这是电影描述
+              .card-footer
+                samll.text-muted 1天前更新
+        .row
+          .col-md-6
+            .card
+              img.card-img-top(src='https://image.ibb.co/eMidhq/images-3.jpg',data-video='http://media.playstation.com/is/content/SCEA/explore/playstation-vr/us/overview/videos/playstation-vr-overview-video-hero-02-ps4-us-14nov18.mp4')
+              .card-body
+                h4.card-title 这是电影标题
+                p.card-desc 这是电影描述
+              .card-footer
+                samll.text-muted 1天前更新
+          .col-md-6
+            .card
+              img.card-img-top(src='https://image.ibb.co/eMidhq/images-3.jpg',data-video='http://media.playstation.com/is/content/SCEA/explore/playstation-vr/us/overview/videos/playstation-vr-overview-video-hero-02-ps4-us-14nov18.mp4')
+              .card-body
+                h4.card-title 这是电影标题
+                p.card-desc 这是电影描述
+              .card-footer
+                samll.text-muted 1天前更新
+  #myModal.modal.fade.bd-example-modal-lg(tabindex="-1", role="dialog",aria-labelledby="myLargeModalLabel", aria-hidden="true")
+    .modal-dialog.modal-lg
+      #videoModal.modal-content
+
+  include ./includes/script
+
+  script.
+    var player = null;
+
+    $(document).ready(function () {
+      $('#myModal').on('hidden.bs.modal', function (e) {
+        if (player && player.pause) player.pause()
+      })
+      $('.card-img-top').click(function (e) {
+        var video = $(this).data('video')
+        var image = $(this).attr('src')
+        $('#myModal').modal('show')
+        if (!player) {
+          player = new DPlayer({
+            container: document.getElementById('videoModal'),
+            screenshot: true,
+            video: {
+              url: video,
+              pic: image,
+              thumbnails: image
+            }
+          })
+        } else {
+          if (player.video.currentSrc !== video) {
+            player.switchVideo({
+              url: video,
+              pic: image,
+              type: 'auto'
+            })
+          }
+        }
+      })
+    })
+
