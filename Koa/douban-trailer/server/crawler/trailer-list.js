@@ -21,7 +21,7 @@ const sleep = time => new Promise(resolve => {
 
   await page.waitForSelector('.more') // 一直等待页面出现这个.more的加载按钮元素出现之后
 
-  for (let i = 0; i < 1; i++) {  // 抓取2页的数据
+  for (let i = 0; i < 1; i++) {  // 只抓取2页的数据
     await sleep(3000)
     await page.click('.more')
   }
@@ -49,5 +49,7 @@ const sleep = time => new Promise(resolve => {
   })
 
   browser.close()
-  console.log(result)
+
+  process.send({ result }) // 发送数据
+  process.exit(0)        // 推荐进程
 })()
