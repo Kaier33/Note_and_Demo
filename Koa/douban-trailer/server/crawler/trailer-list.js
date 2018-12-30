@@ -7,13 +7,13 @@ const sleep = time => new Promise(resolve => {
 
 ;(async () =>{
   console.log('start visit the target page')
-  const browser = await puppeteer.launch({
+  const browser = await puppeteer.launch({  // 启动puppeteer
     args: ['-no-sandbox'], //启动非沙箱模式
     dumpio: false
   })
 
   const page = await browser.newPage() // 开启一个新页面
-  await page.goto(url, {
+  await page.goto(url, { // 跳转指定url
     waitUntil: 'networkidle2' // 当网络空闲时,说明网页已经加载完毕了.
   })
 
@@ -51,5 +51,5 @@ const sleep = time => new Promise(resolve => {
   browser.close()
 
   process.send({ result }) // 发送数据
-  process.exit(0)        // 推荐进程
+  process.exit(0)          // 退出进程
 })()

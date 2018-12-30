@@ -2,7 +2,7 @@ const cp = require('child_process') // 子进程
 const { resolve } = require('path') // 拼接路径
 
 ;(async () => {
-  const script = resolve(__dirname, '../crawler/trailer-list.js') // 拿脚本
+  const script = resolve(__dirname, '../crawler/video.js') // 拿脚本
   const child = cp.fork(script, []) // cp.fork返回一个子进程对象, 第一个参数为要执行的脚本, 第二个传了一个空参数
   let invoked = false // 标识用, 表示脚本是否被执行过
 
@@ -20,7 +20,6 @@ const { resolve } = require('path') // 拼接路径
   })
 
   child.on('message', data => {
-    let result = data.result
-    console.log(result)
+    console.log(data)
   })
 })()
