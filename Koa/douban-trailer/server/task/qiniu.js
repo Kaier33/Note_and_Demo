@@ -12,7 +12,7 @@ const client = new qiniu.rs.BucketManager(mac, cfg) // 七牛上传对象
 // https://developer.qiniu.com/kodo/sdk/1289/nodejs#rs-fetch 
 const uploadToQiniu = async (url, key) => { // key是给上传资源重命名用的
   return new Promise((resolve, reject) => {
-    client.fetch(url, bucket, key, (err, respBody, info) => {
+    client.fetch(url, bucket, key, (err, respBody, info) => { //调用七牛云的fetch功能
       if (err) {
         reject(err)
       } else {

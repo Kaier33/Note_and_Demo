@@ -10,6 +10,7 @@ const sleep = time => new Promise(resolve => {
 ;(async () =>{
   console.log('start visit the target videos page')
   const browser = await puppeteer.launch({  // 启动puppeteer
+    executablePath: '../../chrome-mac/Chromium.app/Contents/MacOS/Chromium', // chromium是自行下载的
     args: ['-no-sandbox'], //启动非沙箱模式
     dumpio: false
   })

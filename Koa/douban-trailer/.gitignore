@@ -2,5 +2,5 @@ dist/
 .temp/
 node_modules/
 .DS_Store
-
+chrome-mac/
 *.mp4
