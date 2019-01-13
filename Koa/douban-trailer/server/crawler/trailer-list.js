@@ -14,7 +14,7 @@ const sleep = time => new Promise(resolve => {
   })
 
   const page = await browser.newPage() // 开启一个新页面
-  await page.goto(url, { // 跳转指定url
+  await page.goto(url, { // 跳转指定url, 上面定义了
     waitUntil: 'networkidle2' // 当网络空闲时,说明网页已经加载完毕了.
   })
 
