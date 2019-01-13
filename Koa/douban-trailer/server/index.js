@@ -8,7 +8,7 @@ mongoose.set('useCreateIndex', true) // 解决一个warn问题
 
 ;(async () =>{
   await connect()
-  initSchemas()
+  initSchemas() // 引入所有的模型
   const Movie = mongoose.model('Movie')
   const movies = await Movie.find({})
   console.log(movies)

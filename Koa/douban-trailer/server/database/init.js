@@ -13,7 +13,7 @@ const glob = require('glob') // 匹配文件路径
 const { resolve } = require('path')
 mongoose.Promise = global.Promise
 
-// 引入所有的schema, 它会自动生成模型.就是所有的schema文件的最后一句
+// 引入所有的schema, 它会自动发布模型.就是所有的schema文件的最后一句
 exports.initSchemas = () => {
   glob.sync(resolve(__dirname, './schema/', '**/*.js')).forEach(require)
 }
