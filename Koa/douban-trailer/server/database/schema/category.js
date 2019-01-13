@@ -28,7 +28,7 @@ const categorySchema = new Schema({ // 定义schema
   }
 })
 
-categorySchema.pre('svae', next => { // pre是一个数据保存前的一个hook, next用于继续执行下去
+categorySchema.pre('svae', function (next) { // pre是一个数据保存前的一个hook, next用于继续执行下去
   if (this.isNew) { // 判断是否是新数据
     this.meta.createdAt = this.meta.updatedAt = new Date() // 新数据添加更新时间
   } else {

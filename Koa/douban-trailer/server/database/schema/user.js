@@ -46,11 +46,11 @@ const userSchema = new Schema({ // 定义schema
 
 // 芒果丝提供了 虚拟字段 , 它不会存入数据库, 每次都会进过一个get方法
 // 判断是否账户锁定了
-userSchema.virtual('isLocked').get(() => {
+userSchema.virtual('isLocked').get(function() {
   return !!(this.lockUntil && this.lockUntil > Date.now())
 })
 
-userSchema.pre('svae', next => { // pre是一个数据保存前的一个hook, 可以理解成中间件, next用于继续执行下去
+userSchema.pre('svae', function (next){ // pre是一个数据保存前的一个hook, 可以理解成中间件, next用于继续执行下去
   if (this.isNew) { // 判断是否是新数据
     this.meta.createdAt = this.meta.updatedAt = new Date() // 新数据添加更新时间
   } else {
@@ -60,15 +60,15 @@ userSchema.pre('svae', next => { // pre是一个数据保存前的一个hook, �
 })
 
 // 让密码在保存之前进行 加密处理
-userSchema.pre('svae', next => {
+userSchema.pre('svae', function (next){
   // 判断密码是否被修改
   if (!this.isModified('password')) return next()
 
   // 构建盐值
-  bcrypt.genSalt(SALT_WORK_FACTOR, (err, salt) => {
+  bcrypt.genSalt(SALT_WORK_FACTOR, function (err, salt) {
     if (err) return next(err)
     // 拿到salt之后, 就可以之后通过hash + salt的方式来进行加密了(加盐加密)
-    bcrypt.hash(this.password, salt, (error, hash) => {
+    bcrypt.hash(this.password, salt,  function(error, hash) {
       if (error) return next(error)
       this.password = hash
       next()
