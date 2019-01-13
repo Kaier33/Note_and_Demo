@@ -6,7 +6,7 @@ const mongoose  = require('mongoose')
 const Movie = mongoose.model('Movie')       // 拿到电影型
 const Category = mongoose.model('Category') // 分类模型
 async function fetchMovie(item) {     // 请求电影详情
-  const url = `http://api.douban.com/v2/movie/subject/${item.doubanId}`
+  const url = `http://api.douban.com/v2/movie/${item.doubanId}`
   let result = await rp(url)
   let body 
   try {
