@@ -4,12 +4,16 @@
 
 const mongoose = require('mongoose')
 const Schema = mongoose.Schema   // 定义数据类型用的
-const Mixed = Schema.Types.Mixed // 把它理解成ts的any
+const { Mixed, ObjectId } = Schema.Types   // Mixed把它理解成ts的any
 
 const movieSchema = new Schema({ // 定义schema
   doubanId: {
     unique: true,
     type: String
+  },
+  category: {
+    type: ObjectId,
+    ref: 'Category'
   },
   rate: Number,
   title: String,

@@ -4,7 +4,7 @@
 // unique 用来保证唯一性, 比如用户名,邮箱,手机之类的
 
 const mongoose = require('mongoose')
-const bcrypt = require('bcrypt') // 自带加密的. 低版本可能会没有(win或老版本node也可以用bcryptjs)
+const bcrypt = require('bcrypt') // 加密用
 const Schema = mongoose.Schema // 定义数据类型用的
 const Mixed = Schema.Types.Mixed // 把它理解成ts的any
 const SALT_WORK_FACTOR = 10 // 构建盐的权重值, 越大 复杂度越高,性能损耗也高  
@@ -117,12 +117,12 @@ userSchema.methods = {
             loginAttempts: 1
           }
         }
-        
-        if (this.loginAttempts +1 >= MAX_LOGIN_ATTEMPTS && this.isLocked) {
+
+        if (this.loginAttempts + 1 >= MAX_LOGIN_ATTEMPTS && this.isLocked) {
           updates.$set = {
             lockUntil: Date.now() + LOCK_TIME // 如果登录超过5次, 且用户没被锁定
           }
-        } 
+        }
         this.update(updates, err => {
           if (!err) resolve(true)
           else reject(err)

@@ -5,10 +5,19 @@
 // 连接数据库
 // 地址
 // 添加事件监听
+// 引入所有的schema
 
 const mongoose = require('mongoose')
 const db = 'mongodb://localhost/test'
+const glob = require('glob') // 匹配文件路径
+const { resolve } = require('path')
 mongoose.Promise = global.Promise
+
+// 引入所有的schema, 它会自动生成模型.就是所有的schema文件的最后一句
+exports.initSchemas = () => {
+  glob.sync(resolve(__dirname, './schema/', '**/*.js')).forEach(require)
+}
+
 exports.connect = () => {
   let maxConnectedTimes = 0
   return new Promise((reslove, reject) => { // 返回promise是为了确保引入方能在连接数据库之后进行操作
