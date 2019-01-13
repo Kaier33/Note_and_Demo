@@ -1,4 +1,5 @@
 const puppeteer = require('puppeteer')
+const { resolve } = require('path')
 const url = `https://movie.douban.com/tag/#/?sort=U&range=7,10&tags=`
 
 const sleep = time => new Promise(resolve => {
@@ -8,9 +9,9 @@ const sleep = time => new Promise(resolve => {
 ;(async () =>{
   console.log('start visit the target page')
   const browser = await puppeteer.launch({  // 启动puppeteer
-    args: ['-no-sandbox'], //启动非沙箱模式
+    args: ['-no-sandbox', '--disable-setuid-sandbox'], //启动非沙箱模式
     dumpio: false,
-    executablePath: '../../chrome-mac/Chromium.app/Contents/MacOS/Chromium', // chromium是自行下载的
+    executablePath: resolve(__dirname, '../../chrome-mac/Chromium.app/Contents/MacOS/Chromium'), // chromium是自行下载的
   })
 
   const page = await browser.newPage() // 开启一个新页面
