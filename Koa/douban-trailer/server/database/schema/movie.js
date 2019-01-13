@@ -7,7 +7,10 @@ const Schema = mongoose.Schema   // 定义数据类型用的
 const Mixed = Schema.Types.Mixed // 把它理解成ts的any
 
 const movieSchema = new Schema({ // 定义schema
-  doubanId: String,
+  doubanId: {
+    unique: true,
+    type: String
+  },
   rate: Number,
   title: String,
   summary: String,
@@ -36,6 +39,15 @@ const movieSchema = new Schema({ // 定义schema
       default: Date.now()
     }
   }
+}) 
+
+movieSchema.pre('svae', next => { // pre是一个数据保存前的一个hook, next用于继续执行下去
+  if (this.isNew) { // 判断是否是新数据
+    this.meta.createdAt = this.meta.updatedAt = new Date() // 新数据添加更新时间
+  } else {
+    this.meta.updatedAt = new Date() // 老数据只更新 update时间
+  }
+  next()
 })
 
 // 创建model 模型, 那么整个项目中就可以直接引用这个movie了
