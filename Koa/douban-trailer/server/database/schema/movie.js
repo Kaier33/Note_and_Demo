@@ -4,7 +4,7 @@
 
 const mongoose = require('mongoose')
 const Schema = mongoose.Schema   // 定义数据类型用的
-const { Mixed, ObjectId } = Schema.Types   // Mixed把它理解成ts的any
+const { Mixed, ObjectId } = Schema.Types   // Mixed把它理解成ts的any, objectid 当做主键
 
 const movieSchema = new Schema({ // 定义schema
   doubanId: {

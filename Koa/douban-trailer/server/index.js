@@ -9,7 +9,8 @@ mongoose.set('useCreateIndex', true) // 解决一个warn问题
 ;(async () =>{
   await connect()
   initSchemas() // 引入所有的模型
-//   require('./task/movie')
+//   require('./task/movie') // 自动执行
+  require('./task/api')
 })()
 
 app.use(views(resolve(__dirname, './views'), {

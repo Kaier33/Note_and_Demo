@@ -30,7 +30,6 @@ const Movie = mongoose.model('Movie') // 拿到模型
         movie = new Movie(item)        // 添加数据
         await movie.save()             // 存入表中
       }
-      
     })
     // console.log(result)
   })

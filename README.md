@@ -8,7 +8,9 @@
 # demo  
 
 + taro
-  - netcloudmusic      taro仿网易云 (暂时弃坑)
+  - netcloudmusic -> taro仿网易云 (暂时弃坑)
 + Koa  
-  - puppeteer node爬虫
+  - puppeteer -> node爬虫
++ other
+  - atom_animation  ->  canvas 原子核运动动画
 

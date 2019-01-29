@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>原子运动模型</title>
+  <style>
+    div {
+      position: relative;
+    }
+    canvas {
+      position: absolute;
+    }
+  </style>
+</head>
+<body>
+<div>
+  <canvas id="canvas" style="transform: rotate(30deg);">浏览器不支持canvas</canvas>
+  <canvas id="canvas1" style="transform: rotate(-30deg);">浏览器不支持canvas</canvas>
+  <canvas id="canvas2" style="transform: rotate(90deg);">浏览器不支持canvas</canvas>
+</div>
+</body>
+<script type="text/javascript">
+  function circleRunEllipse(elemId, canvasWidth, canvasHeight, circleColor, ellipseColor, ellipseHeight, ellipseWidth, ellipseSpeed) {
+    let canvas = document.getElementById(elemId);
+    let context=canvas.getContext("2d");
+
+    let width = canvas.width = canvasWidth;
+    let height = canvas.height = canvasHeight;
+    let radius = 18;
+    let animationFrame = null; // 记录执行的动画，用于取消
+    // 画实体圆
+    function drawCircle(x,y,radius,color){
+      let tempR = radius * 0.7
+      context.save();
+      context.fillStyle = '#fff';
+      context.strokeStyle = '#fff'
+      context.globalAlpha= 1;
+      context.beginPath();
+      context.arc(x,y,radius,0,Math.PI *2);
+      context.closePath();
+      context.fill();
+      
+      // 
+      context.beginPath();
+      context.fillStyle = color;
+      context.arc(x,y, tempR, 0, Math.PI * 2, false);
+      context.fill();
+
+      context.restore();
+    }
+
+
+    // 画椭圆，使用lineTo,把椭圆分割许多片段
+    // 椭圆的三角函数表达式 x = a*cos(t), y = b * sin(t);
+    function drawEllipse(color,x,y,a,b) {
+      //这样可以使得每次循环所绘制的路径（弧线）接近1像素
+      let step = (a > b) ? 1 / a : 1 / b;
+      context.save();
+      context.strokeStyle = color;
+      context.lineWidth = 5
+      context.beginPath();
+      context.moveTo(x + a,y);
+      for(let i = 0; i < Math.PI *2; i += step){
+        context.lineTo(x + a * Math.cos(i),y + b * Math.sin(i))
+      }
+      context.closePath();
+      context.stroke();
+      context.restore();
+    }
+
+    // 椭圆运动
+    let ellipseA = ellipseWidth; // 长轴 a
+    let ellipseB = ellipseHeight; // 短轴 b
+    let ellipseTime = 0;
+    let ellipseStep = ellipseSpeed;  //控制运动速度
+
+    ellipseRun();
+    function ellipseRun() {
+      window.cancelAnimationFrame(animationFrame);
+      animationFrame = window.requestAnimationFrame(ellipseRun);
+      context.clearRect(0,0,width,height);
+      drawEllipse(ellipseColor,width/2,height/2, ellipseA ,ellipseB );
+      if (circleColor) {
+        drawCircle(width/2 + ellipseA * Math.cos(ellipseTime),height/2 + ellipseB * Math.sin(ellipseTime),radius,circleColor);
+      }
+      ellipseTime += ellipseStep;
+    }
+  }
+  circleRunEllipse('canvas', 300, 300, '#9A9A9A', '#9A9A9A', 70, 30, 0.06)
+  circleRunEllipse('canvas1', 300, 300, null, '#9A9A9A', 70, 30, 0.01)
+  circleRunEllipse('canvas2', 300, 300, null, '#9A9A9A', 70, 30, 0.01)
+
+</script>
+</html>
