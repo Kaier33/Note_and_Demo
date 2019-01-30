@@ -1,9 +1,10 @@
 const Koa = require('koa')
 const mongoose = require('mongoose')
-const app = new Koa()
 const views =require('koa-views')
 const {resolve} = require('path')
 const { connect, initSchemas } = require('./database/init')
+const router = require('./routes') // 激活路由
+
 mongoose.set('useCreateIndex', true) // 解决一个warn问题
 
 ;(async () =>{
@@ -12,6 +13,13 @@ mongoose.set('useCreateIndex', true) // 解决一个warn问题
 //   require('./task/movie') // 自动执行
   require('./task/api')
 })()
+
+const app = new Koa()
+
+// koa-router的固定用法
+app
+    .use(router.routes())
+    .use(router.allowedMethods()) // 允许使用基本的方法
 
 app.use(views(resolve(__dirname, './views'), {
     extension: 'pug'
