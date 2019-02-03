@@ -28,18 +28,21 @@
     "koa-router": "^7.4.0",
     "koa-static": "^5.0.0",
     "koa-views": "^6.1.4",
+    "lodash": "^4.17.11",
     "mongoose": "^5.4.2",
     "nanoid": "^2.0.0",
     "parcel-bundler": "^1.11.0",
     "pug": "^2.0.3",
     "puppeteer": "^1.11.0",
     "qiniu": "^7.2.1",
+    "ramda": "^0.26.1",
     "react": "^16.7.0",
     "react-dom": "^16.7.0",
     "request": "^2.88.0",
     "request-promise-native": "^1.0.5"
   },
   "devDependencies": {
-    "babel-core": "^6.26.3"
+    "babel-core": "^6.26.3",
+    "babel-polyfill": "^6.26.0"
   }
 }
