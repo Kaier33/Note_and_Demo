@@ -28,7 +28,7 @@ export default {
 
 <style lang="scss">
   @import "@/assets/css/index/index.scss";
-.page-index {
-  margin-top: 157px;
+.el-main {
+  margin-top: 157px !important;
 }
 </style>
