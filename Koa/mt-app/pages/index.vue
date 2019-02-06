@@ -1,7 +1,7 @@
 <template>
   <section class="container">
     <div>
-      <logo />
+      <!-- <logo /> -->
       <h1 class="title">
         mt-app
       </h1>
