@@ -6,20 +6,16 @@
       </el-col>
       <el-col :span="15" class="center">
         <div class="wrapper">
-          <el-input placeholder="搜索商家或地点" />
-          <button class="el-button el-button--primary"><i class="el-icon-search"/></button>
-          <dl class="hotPlace">
+          <el-input v-model="search" @focus="focus" @blur="blur" @input="input" placeholder="搜索商家或地点"/>
+          <button class="el-button el-button--primary">
+            <i class="el-icon-search"/>
+          </button>
+          <dl v-if="isHotPlace" class="hotPlace">
             <dt>热门搜索</dt>
-            <dd>火锅</dd>
-            <dd>火锅</dd>
-            <dd>火锅</dd>
-            <dd>火锅</dd>
+            <dd v-for="(item, idx) in hotPlace" :key="idx">{{item}}</dd>
           </dl>
-          <dl class="searchList">
-            <dd>火锅</dd>
-            <dd>火锅</dd>
-            <dd>火锅</dd>
-            <dd>火锅</dd>
+          <dl v-if="isSearchList" class="searchList">
+            <dd v-for="(item, idx) in serachList" :key="idx">{{item}}</dd>
           </dl>
         </div>
         <p class="suggset">
@@ -31,29 +27,19 @@
         </p>
         <ul class="nav">
           <li>
-            <nuxt-link
-              to="/"
-              class="takeout">美团外卖</nuxt-link>
+            <nuxt-link to="/" class="takeout">美团外卖</nuxt-link>
           </li>
           <li>
-            <nuxt-link
-              to="/"
-              class="movie">猫眼电影</nuxt-link>
+            <nuxt-link to="/" class="movie">猫眼电影</nuxt-link>
           </li>
           <li>
-            <nuxt-link
-              to="/"
-              class="hotel">美团酒店</nuxt-link>
+            <nuxt-link to="/" class="hotel">美团酒店</nuxt-link>
           </li>
           <li>
-            <nuxt-link
-              to="/"
-              class="apartment">民宿/公寓</nuxt-link>
+            <nuxt-link to="/" class="apartment">民宿/公寓</nuxt-link>
           </li>
           <li>
-            <nuxt-link
-              to="/"
-              class="business">商家入驻</nuxt-link>
+            <nuxt-link to="/" class="business">商家入驻</nuxt-link>
           </li>
         </ul>
       </el-col>
@@ -76,3 +62,36 @@
     </el-row>
   </div>
 </template>
+<script>
+export default {
+  data() {
+    return {
+      search: "",
+      isFocus: false,
+      hotPlace: ["火锅", "火锅", "火锅", "火锅"],
+      serachList: ["故宫", "故宫", "故宫", "故宫"]
+    };
+  },
+  computed: {
+    isHotPlace: function() {
+      return this.isFocus && !this.search;
+    },
+    isSearchList: function() {
+      return this.isFocus && this.search;
+    }
+  },
+  methods: {
+    focus() {
+      this.isFocus = true;
+    },
+    blur() {
+      setTimeout(() => {
+        this.isFocus = false;
+      }, 200);
+    },
+    input() {
+      console.log('iii')
+    }
+  }
+};
+</script>
