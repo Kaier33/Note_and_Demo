@@ -48,6 +48,7 @@
   </div>
 </template>
 <script>
+import CryptoJS from 'crypto-js'
 export default {
   layout: "blank",
   data() {
@@ -55,11 +56,11 @@ export default {
       statusMsg: "",
       error: "",
       ruleForm: {
-        name: "",
+        name: "user001",
         code: "",
-        pwd: "",
-        cpwd: "",
-        email: ""
+        pwd: "123456",
+        cpwd: "123456",
+        email: "469439801@qq.com"
       },
       rules: {
         name: [
@@ -75,6 +76,13 @@ export default {
             required: true,
             type: "email",
             message: "请输入邮箱",
+            trigger: "blur"
+          }
+        ],
+        code : [
+          {
+            required: true,
+            message: "请输入验证码",
             trigger: "blur"
           }
         ],
@@ -109,10 +117,84 @@ export default {
   },
   methods: {
     sendMsg() {
-
+      const self = this
+      let namePass
+      let emailPass
+      if (self.timerid) {
+        return false
+      }
+      // 检验name是否通过, 通过返回 空字符串的
+      this.$refs['ruleForm'].validateField('name', (valid) => {
+        namePass = valid
+      })
+      self.statusMsg = ''
+      if (namePass) {
+        // console.log('no pass')
+        return false
+      }
+      this.$refs['ruleForm'].validateField('email', (valid) => {
+        emailPass = valid
+      })
+      if (!namePass && !emailPass) {
+        this.$axios.post('/users/verify', {
+          username: encodeURIComponent(self.ruleForm.name),
+          email: self.ruleForm.email
+        }).then(
+          ({status, data}) => {
+            if (status === 200 && data && data.code === 0) {
+              let count = 60
+              self.statusMsg = `验证码已发送, 剩余${count--}秒`
+              self.timerid = setInterval(()=>{
+                self.statusMsg = `验证码已发送, 剩余${count--}秒`
+                if (count === 0) {
+                  clearInterval(self.timerid)
+                  self.statusMsg = `验证码已过期`
+                }
+              }, 1000)
+            } else {
+              self.statusMsg = data.msg
+            }
+          }
+        )
+      }
     },
     register() {
-      
+      let self = this
+      this.$refs['ruleForm'].validate((valid) =>{
+        if (valid) {
+          self.$axios.post('/users/signup', {
+            username: window.encodeURIComponent(self.ruleForm.name),
+            password: CryptoJS.MD5(self.ruleForm.pwd).toString(),
+            email: self.ruleForm.email,
+            code: self.ruleForm.code
+          }).then(
+            (res) => {
+              console.log(res)
+              // return
+              if (res.status === 200) {
+                if (res.data && res.data.code === 0) {
+                  self.$message({
+                    message: '恭喜您, 注册成功',
+                    type: 'success',
+                    onClose: function() {
+                      self.$router.push('/login')
+                    }
+                  })
+                } else {
+                  self.error = res.data.msg
+                  self.$refs['ruleForm'].resetFields()
+                }
+              } else {
+                self.error = `服务器出错, 错误码:${res.status}`
+                self.$refs['ruleForm'].resetFields()
+              }
+              setTimeout(()=>{
+                self.error = ''
+              }, 2000)
+            }
+          )
+        }
+      })
     }
   }
 };
