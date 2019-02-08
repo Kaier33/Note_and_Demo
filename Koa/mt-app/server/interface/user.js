@@ -4,7 +4,7 @@ import nodemailer from 'nodemailer' // node 发邮件用的
  
 import UserModel from '../dbs/models/users' // 用户模型, 用来操作user表的
 import Passport from '../interface/utils/passport' // 验证
-import axios from '..//interface/utils/axios' // axios
+import axios from '../interface/utils/axios' // axios
 
 import Config from '../dbs/config' // 各个配置. 芒果, Redis, 邮箱
 

@@ -11,7 +11,9 @@ import json from 'koa-json'                        // koa专门处理json的
 import dbConfig from './dbs/config'                // 数据库等配置
 import passport from './interface/utils/passport'  // 验证策略(session)
 
-import users from './interface/user'               // users接口
+// interface
+import users from './interface/user'             
+import geo from './interface/geo'
 
 const app = new Koa()
 
@@ -57,9 +59,8 @@ async function start() {
   }
   
   // router
-  app
-    .use(users.routes())
-    .use(users.allowedMethods()) // 常用写法
+  app.use(users.routes()).use(users.allowedMethods()) // 固定写法
+  app.use(geo.routes()).use(geo.allowedMethods())
 
   app.use(ctx => {
     ctx.status = 200
