@@ -57,7 +57,9 @@ async function start() {
   }
   
   // router
-  app.use(users.routes()).use(users.allowedMethods()) // 常用写法
+  app
+    .use(users.routes())
+    .use(users.allowedMethods()) // 常用写法
 
   app.use(ctx => {
     ctx.status = 200

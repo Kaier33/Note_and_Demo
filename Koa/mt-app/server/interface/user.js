@@ -88,6 +88,9 @@ router.post('/signup', async (ctx) =>{
 // 登录接口
 router.post('/signin', async (ctx, next) => {
   return Passport.authenticate('local', function(err, user, info, status){
+    console.log('****登录接口的调用策略****')
+    console.log(user) // 这里的user便是session中取的
+    console.log(info)
     if (err) {
       ctx.body ={
         code: -1,
@@ -97,15 +100,14 @@ router.post('/signin', async (ctx, next) => {
       if (user) {
         ctx.body = {
           code: 0,
-          msg: '登录成功',
-          user
+          msg: '登录成功'
         }
         // login 是passport这个中间件挂载在ctx上的,注意 app.use的顺序
         // https://segmentfault.com/a/1190000011557953
         // https://segmentfault.com/q/1010000017403695
         return ctx.login(user)
       } else { // 如果没有这个用户
-         console.log("木有这个用户")
+        //  console.log("木有这个用户")
          ctx.body = {
            code: 1,
            msg: info

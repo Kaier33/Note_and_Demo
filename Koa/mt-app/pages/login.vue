@@ -40,7 +40,7 @@
 </template>
 
 <script>
-// import CryptoJs from "crypto-js";
+import CryptoJs from "crypto-js";
 export default {
   data: () => {
     return {
@@ -52,7 +52,31 @@ export default {
   },
   layout: 'blank',
   methods: {
-    login() {}
+    login() {
+      let self = this
+      self.$axios.post('/users/signin', {
+        username: window.encodeURIComponent(self.username),
+        password: CryptoJs.MD5(self.password).toString()
+      }).then(
+        ({status, data}) => {
+          if (status === 200) {
+            if (data && data.code === 0) {
+              self.$message({
+                message: '登录成功',
+                type: 'success',
+                onClose: function() {
+                  self.$router.push('/')
+                  }
+              })
+            } else {
+              self.$message({message: data.msg,type: 'error'})
+            }
+          } else {
+            self.$message({message: '服务器傲娇了~',type: 'error'})
+          }
+        }
+      )
+    }
   }
 }
 </script>

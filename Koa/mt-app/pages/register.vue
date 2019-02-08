@@ -169,8 +169,7 @@ export default {
             code: self.ruleForm.code
           }).then(
             (res) => {
-              console.log(res)
-              // return
+              // console.log(res)
               if (res.status === 200) {
                 if (res.data && res.data.code === 0) {
                   self.$message({
