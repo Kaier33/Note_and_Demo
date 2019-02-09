@@ -1,6 +1,8 @@
 import Router from 'koa-router' // koa路由
 import axios from '../interface/utils/axios' // axios
+
 import MenusModel from '../dbs/models/menus'
+import ProvinceModel from '../dbs/models/province'
 
 let router = new Router({ prefix: '/geo'})
 
@@ -34,6 +36,27 @@ router.get('/menu', async (ctx) => {
     ctx.body = {
       code: 0,
       menu: []
+    }
+  }
+})
+
+// 获取省份
+router.get('/province', async (ctx) => {
+  let province  = await ProvinceModel.find({})
+  if (province) {
+    ctx.body = {
+      code: 0,
+      province : province.map(item => {
+        return {
+          id: item.id,
+          name: item.value
+        }
+      })
+    }
+  } else {
+    ctx.body = {
+      code: -1,
+      province: []
     }
   }
 })

@@ -22,38 +22,38 @@ export default {
   data() {
     return {
       kind: "",
-      menu: [
-        {
-          type: "food",
-          name: "美食",
-          child: [
-            {
-              title: "美食",
-              child: ["代金券", "甜点", "饮品", "小吃", "快餐", "自助餐"]
-            }
-          ]
-        },
-        {
-          type: "takeout",
-          name: "外卖",
-          child: [
-            {
-              title: "外卖",
-              child: ["美团迈外"]
-            }
-          ]
-        },
-        {
-          type: "hotel",
-          name: "酒店",
-          child: [
-            {
-              title: "酒店信息",
-              child: ["经济学", "散散心", "鬼东西", "很好笑"]
-            }
-          ]
-        }
-      ]
+      // menu: [
+      //   {
+      //     type: "food",
+      //     name: "美食",
+      //     child: [
+      //       {
+      //         title: "美食",
+      //         child: ["代金券", "甜点", "饮品", "小吃", "快餐", "自助餐"]
+      //       }
+      //     ]
+      //   },
+      //   {
+      //     type: "takeout",
+      //     name: "外卖",
+      //     child: [
+      //       {
+      //         title: "外卖",
+      //         child: ["美团迈外"]
+      //       }
+      //     ]
+      //   },
+      //   {
+      //     type: "hotel",
+      //     name: "酒店",
+      //     child: [
+      //       {
+      //         title: "酒店信息",
+      //         child: ["经济学", "散散心", "鬼东西", "很好笑"]
+      //       }
+      //     ]
+      //   }
+      // ]
     };
   },
   computed: {

@@ -9,7 +9,7 @@
       </el-col>
     </el-row>
     <el-row :span="24">
-      3
+      <Eartistic />
     </el-row>
   </div>
 </template>

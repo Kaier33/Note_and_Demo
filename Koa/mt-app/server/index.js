@@ -14,6 +14,7 @@ import passport from './interface/utils/passport'  // 验证策略(session)
 // interface
 import users from './interface/user'             
 import geo from './interface/geo'
+import search from './interface/search'
 
 const app = new Koa()
 
@@ -61,6 +62,7 @@ async function start() {
   // router
   app.use(users.routes()).use(users.allowedMethods()) // 固定写法
   app.use(geo.routes()).use(geo.allowedMethods())
+  app.use(search.routes()).use(search.allowedMethods())
 
   app.use(ctx => {
     ctx.status = 200
