@@ -12,6 +12,7 @@
 + Koa  
   - puppeteer -> node爬虫
   - mt-app -> koa + mongoDB + nuxt SSR
++ graphQL -> study graphQL 
 + other
   - atom_animation  ->  canvas 原子核运动动画
 
