@@ -40,7 +40,7 @@ const root = {
     return 'PlayStation'
   },
   account: ({username}) => {
-    let obj =  {
+    let obj = {
       name: username,
       age: '18',
       sex: 'male',
@@ -73,6 +73,9 @@ app.use('/graphql', graphqlHTTP({
   rootValue: root,
   graphiql: true
 }));
+
+// 提供静态资源供用户访问
+app.use(express.static('public'))
 
 app.listen(3000, '127.0.0.1', function () {
   console.log('start service')
