@@ -5,7 +5,7 @@
   "main": "helloGraphql.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "dev": "nodemon middleware.js"
+    "dev": "nodemon db.js"
   },
   "keywords": [],
   "author": "",
@@ -14,6 +14,8 @@
     "express": "^4.16.4",
     "express-graphql": "^0.7.1",
     "graphql": "^14.1.1",
-    "nodemon": "^1.18.10"
+    "mysql": "^2.16.0",
+    "nodemon": "^1.18.10",
+    "promise-mysql": "^3.3.1"
   }
 }
