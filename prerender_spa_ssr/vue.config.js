@@ -7,23 +7,29 @@ module.exports = {
     config.plugins.delete('prefetch')
   },
   configureWebpack: config => {
-    if (process.env.NODE_ENV !== 'production') return;
+    if (process.env.NODE_ENV !== 'production') return
     return {
       plugins: [
         new prerenderSPAPlugin({
-          /*编译后的html需要存放的路径*/
           staticDir: path.join(__dirname, 'dist'),
-          /*需要预渲染的路由路径 页面过多，可能导致预处理不成功，可分批次打包*/
+          indexPath: path.join(__dirname, 'dist', 'index.html'),
           routes: ['/', '/about'],
+          minify: {
+            collapseBooleanAttributes: true,
+            collapseWhitespace: true,
+            decodeEntities: true,
+            keepClosingSlash: true,
+            sortAttributes: true
+          },
           renderer: new Renderer({
-            renderAfterDocumentEvent: "render-event",
-            /*渲染时显示浏览器窗口。用于调试。*/
+            maxConcurrentRoutes: 4,
+            renderAfterDocumentEvent: 'custom-render-trigger',
             headless: false,
             inject: {
               foo: 'bar'
             },
-            /*延时渲染 如果页面有从接口获取的数据，最好加上延时渲染*/
-            captureAfterTime: 5000
+            // 官网那里写了并不推荐使用, 而网上很多教程都写了这点~~ 
+            // renderAfterTime: 5000
           })
         })
       ]

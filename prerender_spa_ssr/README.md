@@ -1,5 +1,4 @@
 # prerender_spa
-aaa
 
 ## Project setup
 ```

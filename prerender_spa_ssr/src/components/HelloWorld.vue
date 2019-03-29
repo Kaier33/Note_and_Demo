@@ -28,23 +28,6 @@ export default {
   name: "HelloWorld",
   props: {
     msg: String
-  },
-  metaInfo: {
-    title: "My Example App", // set a title
-    meta: [
-      {
-        // set meta
-        name: "keyWords",
-        content: "My Example App"
-      }
-    ],
-    link: [
-      {
-        // set link
-        rel: "asstes",
-        href: "https://assets-cdn.github.com/"
-      }
-    ]
   }
 };
 </script>
