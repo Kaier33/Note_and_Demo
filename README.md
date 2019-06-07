@@ -15,6 +15,8 @@
 + graphQL -> study graphQL 
 + prerender_spa_ssr vue预渲染
 + react
++ tiny-mvvm
+  - powerByObjectdefineProperty (利用object.defineproperty进行数据劫持的简易mvvm)
 + other
   - atom_animation  ->  canvas 原子核运动动画
 
