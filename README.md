@@ -14,6 +14,7 @@
   - mt-app -> koa + mongoDB + nuxt SSR
 + graphQL -> study graphQL 
 + prerender_spa_ssr vue预渲染
++ react
 + other
   - atom_animation  ->  canvas 原子核运动动画
 
