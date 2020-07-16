@@ -28,7 +28,7 @@
     "koa-router": "^7.4.0",
     "koa-static": "^5.0.0",
     "koa-views": "^6.1.4",
-    "lodash": "^4.17.11",
+    "lodash": "^4.17.19",
     "mongoose": "^5.4.2",
     "nanoid": "^2.0.0",
     "parcel-bundler": "^1.11.0",
