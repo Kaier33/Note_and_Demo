@@ -33,7 +33,7 @@
     "nanoid": "^2.0.0",
     "parcel-bundler": "^1.11.0",
     "pug": "^2.0.3",
-    "puppeteer": "^1.11.0",
+    "puppeteer": "^1.13.0",
     "qiniu": "^7.2.1",
     "ramda": "^0.26.1",
     "react": "^16.7.0",
